@@ -64,8 +64,8 @@ int main()
 
 
 	HGLModel model;
-	//model.Load("bones/01mini.obj");
-	model.Load("nanosuit/nanosuit.obj");
+	model.Load("bones/01mini.obj");
+	//model.Load("nanosuit/nanosuit.obj");
 
 	glEnable(GL_DEPTH_TEST);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
