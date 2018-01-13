@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../GLAD/glad.h"
+#include "../../GLAD/glad.h"
 #include <stb_image.h>
 #include <iostream>
-#include "HGLReferenceCounter.h"
+#include "../GLReferenceCounter/HGLReferenceCounter.h"
 
 using namespace std;
 

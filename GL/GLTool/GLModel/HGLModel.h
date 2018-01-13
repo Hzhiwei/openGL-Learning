@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../GLAD/glad.h"
+#include "../../GLAD/glad.h"
 #include <glm.hpp>
 #include <gtc/type_ptr.hpp>
 #include <iostream>
@@ -10,10 +10,11 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include "HGLShader.h"
-#include "HGLTexture2D.h"
-#include "HGLReferenceCounter.h"
-#include "HGLCamera.h"
+#include "../GLShader/HGLShader.h"
+#include "../GLTexture2D/HGLTexture2D.h"
+#include "../GLReferenceCounter/HGLReferenceCounter.h"
+#include "../GLCamera/HGLCamera.h"
+#include "../GLShader/HGLShaderProgram.h"
 
 
 namespace HGLTool

@@ -118,14 +118,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GLAD\glad.c" />
-    <ClCompile Include="GLTool\HGLCamera.cpp" />
-    <ClCompile Include="GLTool\HGLModel.cpp" />
-    <ClCompile Include="GLTool\HGLshader.cpp" />
-    <ClCompile Include="GLTool\HGLTexture2D.cpp" />
+    <ClCompile Include="GLTool\GLCamera\HGLCamera.cpp" />
+    <ClCompile Include="GLTool\GLModel\HGLModel.cpp" />
+    <ClCompile Include="GLTool\GLShader\HGLshader.cpp" />
+    <ClCompile Include="GLTool\GLShader\HGLShaderProgram.cpp" />
+    <ClCompile Include="GLTool\GLTexture2D\HGLTexture2D.cpp" />
     <ClCompile Include="main.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="main1.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="stb_image.cpp" />
@@ -133,11 +131,12 @@
   <ItemGroup>
     <ClInclude Include="GLAD\glad.h" />
     <ClInclude Include="GLAD\khrplatform.h" />
-    <ClInclude Include="GLTool\HGLCamera.h" />
-    <ClInclude Include="GLTool\HGLModel.h" />
-    <ClInclude Include="GLTool\HGLReferenceCounter.h" />
-    <ClInclude Include="GLTool\HGLShader.h" />
-    <ClInclude Include="GLTool\HGLTexture2D.h" />
+    <ClInclude Include="GLTool\GLCamera\HGLCamera.h" />
+    <ClInclude Include="GLTool\GLModel\HGLModel.h" />
+    <ClInclude Include="GLTool\GLReferenceCounter\HGLReferenceCounter.h" />
+    <ClInclude Include="GLTool\GLShader\HGLShader.h" />
+    <ClInclude Include="GLTool\GLShader\HGLShaderProgram.h" />
+    <ClInclude Include="GLTool\GLTexture2D\HGLTexture2D.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shader.vs" />

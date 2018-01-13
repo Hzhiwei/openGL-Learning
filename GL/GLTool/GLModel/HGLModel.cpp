@@ -23,8 +23,8 @@ namespace HGLTool
 		"uniform sampler2D textureParam;\n"
 		"void main()\n"
 		"{\n"
-		"	//FragColor = texture(textureParam, Tex);\n"
-		"	FragColor = vec4(1.0f, 1.0f, 1.0f,1.0f);\n"
+		"	FragColor = texture(textureParam, Tex);\n"
+		"	//FragColor = vec4(1.0f, 1.0f, 1.0f,1.0f);\n"
 		"}\n\0";
 
 

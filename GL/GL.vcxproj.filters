@@ -19,31 +19,46 @@
     <Filter Include="GLTool">
       <UniqueIdentifier>{6aa1300b-bd6a-4bff-9b8a-46363592caf2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GLTool\GLShader">
+      <UniqueIdentifier>{d691e0dd-6f8d-4781-8576-7164342c324c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GLTool\GLReferenceCounter">
+      <UniqueIdentifier>{9748761c-2a83-4a9a-9b07-498c479b20c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GLTool\GLTexture2D">
+      <UniqueIdentifier>{157da8bd-582d-49c8-92c4-297005d55e7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GLTool\GLCamera">
+      <UniqueIdentifier>{21505800-d2ca-4e64-b94f-f3ad88bdb1ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GLTool\GLModel">
+      <UniqueIdentifier>{1fb2bc15-537d-43c4-9c25-f31500e96a72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="GLAD\glad.c">
       <Filter>GLAD</Filter>
     </ClCompile>
     <ClCompile Include="stb_image.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="main1.cpp">
+    <ClCompile Include="GLTool\GLShader\HGLshader.cpp">
+      <Filter>GLTool\GLShader</Filter>
+    </ClCompile>
+    <ClCompile Include="GLTool\GLTexture2D\HGLTexture2D.cpp">
+      <Filter>GLTool\GLTexture2D</Filter>
+    </ClCompile>
+    <ClCompile Include="GLTool\GLCamera\HGLCamera.cpp">
+      <Filter>GLTool\GLCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="GLTool\GLModel\HGLModel.cpp">
+      <Filter>GLTool\GLModel</Filter>
+    </ClCompile>
+    <ClCompile Include="GLTool\GLShader\HGLShaderProgram.cpp">
+      <Filter>GLTool\GLShader</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="GLTool\HGLModel.cpp">
-      <Filter>GLTool</Filter>
-    </ClCompile>
-    <ClCompile Include="GLTool\HGLshader.cpp">
-      <Filter>GLTool</Filter>
-    </ClCompile>
-    <ClCompile Include="GLTool\HGLTexture2D.cpp">
-      <Filter>GLTool</Filter>
-    </ClCompile>
-    <ClCompile Include="GLTool\HGLCamera.cpp">
-      <Filter>GLTool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -53,20 +68,23 @@
     <ClInclude Include="GLAD\khrplatform.h">
       <Filter>GLAD</Filter>
     </ClInclude>
-    <ClInclude Include="GLTool\HGLModel.h">
-      <Filter>GLTool</Filter>
+    <ClInclude Include="GLTool\GLShader\HGLShader.h">
+      <Filter>GLTool\GLShader</Filter>
     </ClInclude>
-    <ClInclude Include="GLTool\HGLShader.h">
-      <Filter>GLTool</Filter>
+    <ClInclude Include="GLTool\GLReferenceCounter\HGLReferenceCounter.h">
+      <Filter>GLTool\GLReferenceCounter</Filter>
     </ClInclude>
-    <ClInclude Include="GLTool\HGLTexture2D.h">
-      <Filter>GLTool</Filter>
+    <ClInclude Include="GLTool\GLTexture2D\HGLTexture2D.h">
+      <Filter>GLTool\GLTexture2D</Filter>
     </ClInclude>
-    <ClInclude Include="GLTool\HGLCamera.h">
-      <Filter>GLTool</Filter>
+    <ClInclude Include="GLTool\GLCamera\HGLCamera.h">
+      <Filter>GLTool\GLCamera</Filter>
     </ClInclude>
-    <ClInclude Include="GLTool\HGLReferenceCounter.h">
-      <Filter>GLTool</Filter>
+    <ClInclude Include="GLTool\GLModel\HGLModel.h">
+      <Filter>GLTool\GLModel</Filter>
+    </ClInclude>
+    <ClInclude Include="GLTool\GLShader\HGLShaderProgram.h">
+      <Filter>GLTool\GLShader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

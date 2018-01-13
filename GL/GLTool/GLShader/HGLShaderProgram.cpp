@@ -1,5 +1,5 @@
 
-#include "HGLShader.h"
+#include "HGLShaderProgram.h"
 
 namespace HGLTool
 {
@@ -41,31 +41,32 @@ namespace HGLTool
 		return *this;
 	}
 
-	void HGLShaderProgram::SetShader(GLuint Vertex, GLuint Fragment)
+	bool HGLShaderProgram::SetShader(GLuint Vertex, GLuint Fragment)
 	{
 		MangerCounterAndShader();
-		VertexShaderID = Vertex;
-		FragmentShaderID = Fragment;
-		glAttachShader(ID, VertexShaderID);
-		glAttachShader(ID, FragmentShaderID);
-		Link();
+		glAttachShader(ID, Vertex);
+		glAttachShader(ID, Fragment);
+		return Link();
+	}
+
+	void HGLShaderProgram::SetShader(GLuint ShaderID)
+	{
+		MangerCounterAndShader();
+		glAttachShader(ID, ShaderID);
 	}
 
 	bool HGLShaderProgram::Link()
 	{
-		if (SourceObject)
+		GLint success;
+		glLinkProgram(ID);
+		glGetProgramiv(ID, GL_LINK_STATUS, &success);
+		if (!success)
 		{
-			GLint success;
-			glLinkProgram(ID);
-			glGetProgramiv(ID, GL_LINK_STATUS, &success);
-			if (!success)
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
+			return false;
+		}
+		else
+		{
+			return true;
 		}
 	}
 
@@ -130,7 +131,6 @@ namespace HGLTool
 				Info = new char[INFOLENGTH];
 			}
 		}
-		SourceObject = true;
 	}
 
 	void HGLShaderProgram::MangerCounterAndShader(const HGLShaderProgram & Param)
@@ -158,7 +158,6 @@ namespace HGLTool
 		Counter->Increase();
 		ID = Param.ID;
 		Info = Param.Info;
-		SourceObject = false;
 	}
 
 
