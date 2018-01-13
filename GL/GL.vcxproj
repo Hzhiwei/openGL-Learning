@@ -119,10 +119,13 @@
   <ItemGroup>
     <ClCompile Include="GLAD\glad.c" />
     <ClCompile Include="GLTool\GLCamera\HGLCamera.cpp" />
+    <ClCompile Include="GLTool\GLLight\HGLLight.cpp" />
+    <ClCompile Include="GLTool\GLLight\HGLPointLight.cpp" />
     <ClCompile Include="GLTool\GLModel\HGLModel.cpp" />
     <ClCompile Include="GLTool\GLShader\HGLshader.cpp" />
     <ClCompile Include="GLTool\GLShader\HGLShaderProgram.cpp" />
     <ClCompile Include="GLTool\GLTexture2D\HGLTexture2D.cpp" />
+    <ClCompile Include="HGLPointLight.cpp" />
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -132,14 +135,20 @@
     <ClInclude Include="GLAD\glad.h" />
     <ClInclude Include="GLAD\khrplatform.h" />
     <ClInclude Include="GLTool\GLCamera\HGLCamera.h" />
+    <ClInclude Include="GLTool\GLLight\HGLLight.h" />
+    <ClInclude Include="GLTool\GLLight\HGLPointLight.h" />
     <ClInclude Include="GLTool\GLModel\HGLModel.h" />
     <ClInclude Include="GLTool\GLReferenceCounter\HGLReferenceCounter.h" />
     <ClInclude Include="GLTool\GLShader\HGLShader.h" />
     <ClInclude Include="GLTool\GLShader\HGLShaderProgram.h" />
     <ClInclude Include="GLTool\GLTexture2D\HGLTexture2D.h" />
+    <ClInclude Include="HGLPointLight.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shader.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="detail.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

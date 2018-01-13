@@ -30,7 +30,7 @@ namespace HGLTool
 
 	public:
 		bool Source(const GLchar * const Code);
-		bool Source(const std::string &Code);
+		bool Source(const std::string & Code);
 		std::string GetCompileInfo();
 		GLuint GetID();
 
