@@ -8,7 +8,7 @@ namespace HGLTool
 	{
 		PointLight = 0,
 		ParallelLight,
-		Spotlight
+		SpotLight
 	};
 
 	class HGLLight

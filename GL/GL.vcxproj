@@ -120,7 +120,6 @@
     <ClCompile Include="GLAD\glad.c" />
     <ClCompile Include="GLTool\GLCamera\HGLCamera.cpp" />
     <ClCompile Include="GLTool\GLLight\HGLLight.cpp" />
-    <ClCompile Include="GLTool\GLLight\HGLPointLight.cpp" />
     <ClCompile Include="GLTool\GLModel\HGLModel.cpp" />
     <ClCompile Include="GLTool\GLShader\HGLshader.cpp" />
     <ClCompile Include="GLTool\GLShader\HGLShaderProgram.cpp" />
@@ -136,7 +135,9 @@
     <ClInclude Include="GLAD\khrplatform.h" />
     <ClInclude Include="GLTool\GLCamera\HGLCamera.h" />
     <ClInclude Include="GLTool\GLLight\HGLLight.h" />
+    <ClInclude Include="GLTool\GLLight\HGLParallelLight.h" />
     <ClInclude Include="GLTool\GLLight\HGLPointLight.h" />
+    <ClInclude Include="GLTool\GLLight\HGLSpotLight.h" />
     <ClInclude Include="GLTool\GLModel\HGLModel.h" />
     <ClInclude Include="GLTool\GLReferenceCounter\HGLReferenceCounter.h" />
     <ClInclude Include="GLTool\GLShader\HGLShader.h" />
