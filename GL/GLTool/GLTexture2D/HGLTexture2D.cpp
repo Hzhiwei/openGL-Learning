@@ -96,7 +96,7 @@ namespace HGLTool
 		glBindTexture(GL_TEXTURE_2D, ID);
 	}
 
-	void HGLTexture2D::ActiveAndBind(GLenum Unit)
+	void HGLTexture2D::ActiveAndBind(GLenum Unit) const
 	{
 		glActiveTexture(Unit);
 		glBindTexture(GL_TEXTURE_2D, ID);

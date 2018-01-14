@@ -76,7 +76,7 @@ namespace HGLTool
 		return std::string(Info);
 	}
 
-	void HGLShaderProgram::Use()
+	void HGLShaderProgram::Use() const
 	{
 		glUseProgram(ID);
 	}

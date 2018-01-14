@@ -33,7 +33,7 @@ namespace HGLTool
 		void LoadFromData(GLuint InternalFormate, GLuint W, GLuint H, GLuint Border, GLenum Type, const void * const Ptr);
 		bool LoadFromFile(string Path);
 		void Bind();
-		void ActiveAndBind(GLenum Unit);
+		void ActiveAndBind(GLenum Unit) const;
 		void UnBind();
 		void Parameteri(GLenum Pname, GLint Param);
 		GLuint GetID();

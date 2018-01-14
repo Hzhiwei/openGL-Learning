@@ -14,10 +14,13 @@ namespace HGLTool
 	class HGLLight
 	{
 	public:
-		HGLLight();
-		~HGLLight();
+		HGLLight(HGLLightMode LightMode) : Mode(LightMode) {};
+		~HGLLight() {};
 
 	public:
 		glm::u8vec3 Color;
+
+	protected:
+		const HGLLightMode Mode;
 	};
 }

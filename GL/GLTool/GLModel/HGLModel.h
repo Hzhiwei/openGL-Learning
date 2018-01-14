@@ -46,7 +46,7 @@ namespace HGLTool
 		//设置着色器
 		void AttachShaderProgram(HGLShaderProgram & ImportShader);
 		//绘制网格
-		void Draw(const HGLCamera & Camera);
+		void Draw(const HGLCamera & Camera) const;
 		//清除数据
 		void Clear();
 		//设置数据至GPU
@@ -67,6 +67,7 @@ namespace HGLTool
 		HGLTexture2D texture;
 		//此网格使用的着色器
 		HGLShaderProgram ShaderProgram;
+
 		HGLReferenceCounter *Counter = NULL;
 
 		GLuint VAO = 0;
@@ -82,7 +83,8 @@ namespace HGLTool
 		~HGLModel();
 
 		bool Load(const string & Path);
-		void Draw(const HGLCamera & Camera);
+		void Draw(const HGLCamera & Camera) const;
+		void SetModelMatrix(const glm::mat4 Matrix);
 
 	private:
 		void processNode(aiNode *Node, const aiScene *Scene);
@@ -93,6 +95,8 @@ namespace HGLTool
 		vector<HGLMesh> meshList;
 		string directory;
 		std::map<std::string, HGLTexture2D> textures;
+		//模型矩阵
+		glm::mat4 ModelMatrix;
 		HGLShaderProgram *ShaderProgram;
 	};
 }

@@ -20,11 +20,12 @@ namespace HGLTool
 	600		1.0	0.007		0.0002
 	3250	1.0	0.0014		0.000007
 	*/
+
 	class HGLPointLight : public HGLLight
 	{
 	public:
 		
-		HGLPointLight() : HGLLight(), Position(0.0f, 0.0f, 0.0f) {}
+		HGLPointLight() : HGLLight(HGLLightMode::PointLight), Position(0.0f, 0.0f, 0.0f) {}
 		~HGLPointLight() {}
 
 		void Move(const glm::vec3 P)

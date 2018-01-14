@@ -10,7 +10,7 @@ namespace HGLTool
 	{
 	public:
 		SpotLight() : 
-			HGLLight(), 
+			HGLLight(HGLLightMode::SpotLight),
 			Direction(0.0f, 0.0f, 0.0f),
 			Position(0.0f, 0.0f, -1.0f),
 			InnerCutOffCos(cos(glm::radians(45.0f))),

@@ -10,9 +10,10 @@ namespace HGLTool
 		"layout(location = 2) in vec2 aTex;\n"
 		"out vec2 Tex;\n"
 		"uniform mat4 view;\n"
+		"uniform mat4 modelMatrix;\n"
 		"void main()\n"
 		"{\n"
-		"	gl_Position = view * vec4(aPos, 1.0f);\n"
+		"	gl_Position = view * modelMatrix * vec4(aPos, 1.0f);\n"
 		"	Tex = aTex;\n"
 		"}\n\0";
 	
@@ -23,8 +24,8 @@ namespace HGLTool
 		"uniform sampler2D textureParam;\n"
 		"void main()\n"
 		"{\n"
-		"	FragColor = texture(textureParam, Tex);\n"
-		"	//FragColor = vec4(1.0f, 1.0f, 1.0f,1.0f);\n"
+		"	//FragColor = texture(textureParam, Tex);\n"
+		"	FragColor = vec4(1.0f, 1.0f, 1.0f,1.0f);\n"
 		"}\n\0";
 
 
@@ -87,13 +88,11 @@ namespace HGLTool
 		ShaderProgram = ImportShader;
 	}
 
-	void HGLMesh::Draw(const HGLCamera & Camera)
+	void HGLMesh::Draw(const HGLCamera & Camera) const
 	{
 		glActiveTexture(GL_TEXTURE0);
 
 		texture.ActiveAndBind(GL_TEXTURE0);
-		ShaderProgram.SetInt("textureParam", 0);
-		ShaderProgram.SetMat4fv("view", Camera.Get());
 		ShaderProgram.Use();
 		glBindVertexArray(VAO);
 
@@ -240,12 +239,20 @@ namespace HGLTool
 
 		return true;
 	}
-	void HGLModel::Draw(const HGLCamera & Camera)
+	void HGLModel::Draw(const HGLCamera & Camera) const
 	{
+		ShaderProgram->SetInt("textureParam", 0);
+		ShaderProgram->SetMat4fv("view", Camera.Get());
+		ShaderProgram->SetMat4fv("modelMatrix", ModelMatrix);
 		for (int i = 0; i < meshList.size(); ++i)
 		{
 			meshList[i].Draw(Camera);
 		}
+	}
+
+	void HGLModel::SetModelMatrix(const glm::mat4 Matrix)
+	{
+		ModelMatrix = Matrix;
 	}
 
 	void HGLModel::processNode(aiNode * Node, const aiScene * Scene)

@@ -39,7 +39,7 @@ namespace HGLTool
 		//链接程序
 		bool Link();
 		//使用此着色器
-		void Use();
+		void Use() const;
 		//获取全局变量地址
 		GLint GetUniform(const char * const Name) const;
 

@@ -119,8 +119,8 @@
   <ItemGroup>
     <ClCompile Include="GLAD\glad.c" />
     <ClCompile Include="GLTool\GLCamera\HGLCamera.cpp" />
-    <ClCompile Include="GLTool\GLLight\HGLLight.cpp" />
     <ClCompile Include="GLTool\GLModel\HGLModel.cpp" />
+    <ClCompile Include="GLTool\GLScenes\HGLScenes.cpp" />
     <ClCompile Include="GLTool\GLShader\HGLshader.cpp" />
     <ClCompile Include="GLTool\GLShader\HGLShaderProgram.cpp" />
     <ClCompile Include="GLTool\GLTexture2D\HGLTexture2D.cpp" />
@@ -140,12 +140,14 @@
     <ClInclude Include="GLTool\GLLight\HGLSpotLight.h" />
     <ClInclude Include="GLTool\GLModel\HGLModel.h" />
     <ClInclude Include="GLTool\GLReferenceCounter\HGLReferenceCounter.h" />
+    <ClInclude Include="GLTool\GLScenes\HGLScenes.h" />
     <ClInclude Include="GLTool\GLShader\HGLShader.h" />
     <ClInclude Include="GLTool\GLShader\HGLShaderProgram.h" />
     <ClInclude Include="GLTool\GLTexture2D\HGLTexture2D.h" />
     <ClInclude Include="HGLPointLight.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="GLTool\ShaderSource\LightTest.ss" />
     <None Include="shader.vs" />
   </ItemGroup>
   <ItemGroup>

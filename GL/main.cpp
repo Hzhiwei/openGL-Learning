@@ -65,14 +65,16 @@ int main()
 
 
 	HGLModel model;
-	//model.Load("bones/01mini.obj");
-	model.Load("nanosuit/nanosuit.obj");
+	model.Load("bones/10.obj");
+	//model.Load("nanosuit/nanosuit.obj");
 
 	glEnable(GL_DEPTH_TEST);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+	//viewCamera.MoveDeep(-6);
 	viewCamera.MoveVertical(3);
-	viewCamera.MoveDeep(-6.0f);
+	viewCamera.RotateVertical(glm::radians(-45.0f));
+	viewCamera.RotateVertical(glm::radians(-45.0f));
 
 	while (!glfwWindowShouldClose(mainWindow))
 	{
@@ -104,13 +106,13 @@ bool MousePushed = false;
 void processInput(GLFWwindow *window)
 {
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		viewCamera.MoveDeep(0.2f);
+		viewCamera.MoveDeep(0.05f);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		viewCamera.MoveDeep(-0.2f);
+		viewCamera.MoveDeep(-0.05f);
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		viewCamera.MoveHorizon(0.2f);
+		viewCamera.MoveHorizon(0.05f);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		viewCamera.MoveHorizon(-0.2f);
+		viewCamera.MoveHorizon(-0.05f);
 
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT))
 	{

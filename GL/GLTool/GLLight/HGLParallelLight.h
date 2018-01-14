@@ -8,7 +8,7 @@ namespace HGLTool
 	class HGLParallelLight : HGLLight
 	{
 	public:
-		HGLParallelLight() : HGLLight() , Direction(0.0f, 0.0f, 0.0f) {}
+		HGLParallelLight() : HGLLight(HGLLightMode::ParallelLight) , Direction(0.0f, 0.0f, 0.0f) {}
 		~HGLParallelLight() {}
 
 		void SetDir(const glm::vec3 D)

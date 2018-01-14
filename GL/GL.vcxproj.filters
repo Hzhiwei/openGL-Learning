@@ -33,6 +33,12 @@
     <Filter Include="GLTool\GLLight">
       <UniqueIdentifier>{89d2f7fb-8890-46ee-bc33-7c91a6d0c268}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GLTool\GLScenes">
+      <UniqueIdentifier>{a13c6d4c-ae19-4cef-8a77-6708924a10c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GLTool\ShaderSource">
+      <UniqueIdentifier>{a5d4f227-3c45-4ddb-8e4e-8fed8574cebb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GLAD\glad.c">
@@ -59,11 +65,11 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="GLTool\GLLight\HGLLight.cpp">
-      <Filter>GLTool\GLLight</Filter>
-    </ClCompile>
     <ClCompile Include="HGLPointLight.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GLTool\GLScenes\HGLScenes.cpp">
+      <Filter>GLTool\GLScenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,8 +110,14 @@
     <ClInclude Include="GLTool\GLLight\HGLSpotLight.h">
       <Filter>GLTool\GLLight</Filter>
     </ClInclude>
+    <ClInclude Include="GLTool\GLScenes\HGLScenes.h">
+      <Filter>GLTool\GLScenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="GLTool\ShaderSource\LightTest.ss">
+      <Filter>GLTool\ShaderSource</Filter>
+    </None>
     <None Include="shader.vs">
       <Filter>源文件</Filter>
     </None>
