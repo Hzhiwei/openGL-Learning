@@ -6,7 +6,8 @@ namespace HGLTool
 {
 	enum HGLLightMode
 	{
-		PointLight = 0,
+		AmbientLight = 0,
+		PointLight,
 		ParallelLight,
 		SpotLight
 	};

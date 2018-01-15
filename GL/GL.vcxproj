@@ -121,9 +121,11 @@
     <ClCompile Include="GLTool\GLCamera\HGLCamera.cpp" />
     <ClCompile Include="GLTool\GLModel\HGLModel.cpp" />
     <ClCompile Include="GLTool\GLScenes\HGLScenes.cpp" />
+    <ClCompile Include="GLTool\GLShader\HGLDynamicLightFragmentShader.cpp" />
     <ClCompile Include="GLTool\GLShader\HGLshader.cpp" />
     <ClCompile Include="GLTool\GLShader\HGLShaderProgram.cpp" />
     <ClCompile Include="GLTool\GLTexture2D\HGLTexture2D.cpp" />
+    <ClCompile Include="HGLDynamicLightFragmentShader.cpp" />
     <ClCompile Include="HGLPointLight.cpp" />
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -134,6 +136,7 @@
     <ClInclude Include="GLAD\glad.h" />
     <ClInclude Include="GLAD\khrplatform.h" />
     <ClInclude Include="GLTool\GLCamera\HGLCamera.h" />
+    <ClInclude Include="GLTool\GLLight\HGLAmbientLight.h" />
     <ClInclude Include="GLTool\GLLight\HGLLight.h" />
     <ClInclude Include="GLTool\GLLight\HGLParallelLight.h" />
     <ClInclude Include="GLTool\GLLight\HGLPointLight.h" />
@@ -141,9 +144,11 @@
     <ClInclude Include="GLTool\GLModel\HGLModel.h" />
     <ClInclude Include="GLTool\GLReferenceCounter\HGLReferenceCounter.h" />
     <ClInclude Include="GLTool\GLScenes\HGLScenes.h" />
+    <ClInclude Include="GLTool\GLShader\HGLDynamicLightFragmentShader.h" />
     <ClInclude Include="GLTool\GLShader\HGLShader.h" />
     <ClInclude Include="GLTool\GLShader\HGLShaderProgram.h" />
     <ClInclude Include="GLTool\GLTexture2D\HGLTexture2D.h" />
+    <ClInclude Include="HGLDynamicLightFragmentShader.h" />
     <ClInclude Include="HGLPointLight.h" />
   </ItemGroup>
   <ItemGroup>

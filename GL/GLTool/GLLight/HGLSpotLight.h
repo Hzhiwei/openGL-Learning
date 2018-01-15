@@ -6,7 +6,7 @@
 
 namespace HGLTool
 {
-	class SpotLight : HGLLight
+	class SpotLight : public HGLLight
 	{
 	public:
 		SpotLight() : 

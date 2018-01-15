@@ -71,6 +71,12 @@
     <ClCompile Include="GLTool\GLScenes\HGLScenes.cpp">
       <Filter>GLTool\GLScenes</Filter>
     </ClCompile>
+    <ClCompile Include="HGLDynamicLightFragmentShader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GLTool\GLShader\HGLDynamicLightFragmentShader.cpp">
+      <Filter>GLTool\GLShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLAD\glad.h">
@@ -112,6 +118,13 @@
     </ClInclude>
     <ClInclude Include="GLTool\GLScenes\HGLScenes.h">
       <Filter>GLTool\GLScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="HGLDynamicLightFragmentShader.h" />
+    <ClInclude Include="GLTool\GLShader\HGLDynamicLightFragmentShader.h">
+      <Filter>GLTool\GLShader</Filter>
+    </ClInclude>
+    <ClInclude Include="GLTool\GLLight\HGLAmbientLight.h">
+      <Filter>GLTool\GLLight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

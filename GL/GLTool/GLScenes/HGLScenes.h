@@ -18,6 +18,9 @@ namespace HGLTool
 		HGLScenes();
 		~HGLScenes();
 
+		void AddModel(std::shared_ptr<HGLModel> Model);
+		void AddLight(std::shared_ptr<HGLLight> Light);
+
 	private:
 		std::vector<std::shared_ptr<HGLModel>> Models;
 		std::vector<std::shared_ptr<HGLLight>> Lights;
