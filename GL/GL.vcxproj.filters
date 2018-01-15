@@ -47,9 +47,6 @@
     <ClCompile Include="stb_image.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="GLTool\GLShader\HGLshader.cpp">
-      <Filter>GLTool\GLShader</Filter>
-    </ClCompile>
     <ClCompile Include="GLTool\GLTexture2D\HGLTexture2D.cpp">
       <Filter>GLTool\GLTexture2D</Filter>
     </ClCompile>
@@ -65,14 +62,8 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="HGLPointLight.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="GLTool\GLScenes\HGLScenes.cpp">
       <Filter>GLTool\GLScenes</Filter>
-    </ClCompile>
-    <ClCompile Include="HGLDynamicLightFragmentShader.cpp">
-      <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="GLTool\GLShader\HGLDynamicLightFragmentShader.cpp">
       <Filter>GLTool\GLShader</Filter>
@@ -106,7 +97,6 @@
     <ClInclude Include="GLTool\GLLight\HGLLight.h">
       <Filter>GLTool\GLLight</Filter>
     </ClInclude>
-    <ClInclude Include="HGLPointLight.h" />
     <ClInclude Include="GLTool\GLLight\HGLPointLight.h">
       <Filter>GLTool\GLLight</Filter>
     </ClInclude>
@@ -119,7 +109,6 @@
     <ClInclude Include="GLTool\GLScenes\HGLScenes.h">
       <Filter>GLTool\GLScenes</Filter>
     </ClInclude>
-    <ClInclude Include="HGLDynamicLightFragmentShader.h" />
     <ClInclude Include="GLTool\GLShader\HGLDynamicLightFragmentShader.h">
       <Filter>GLTool\GLShader</Filter>
     </ClInclude>

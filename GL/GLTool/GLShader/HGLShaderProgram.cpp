@@ -6,17 +6,14 @@ namespace HGLTool
 
 	HGLShaderProgram::HGLShaderProgram()
 	{
-
-	}
-
-	HGLShaderProgram::HGLShaderProgram(const HGLShaderProgram & Param)
-	{
-		MangerCounterAndShader(Param);
+		ID = glCreateProgram();
+		Info = new char[INFOLENGTH];
 	}
 
 	HGLShaderProgram::HGLShaderProgram(GLuint Vertex, GLuint Fragment)
 	{
-		MangerCounterAndShader();
+		ID = glCreateProgram();
+		Info = new char[INFOLENGTH];
 		SetShader(Vertex, Fragment);
 		Link();
 	}
@@ -24,26 +21,12 @@ namespace HGLTool
 
 	HGLShaderProgram::~HGLShaderProgram()
 	{
-		if (Counter != NULL)
-		{
-			if (Counter->Decrease())
-			{
-				glDeleteProgram(ID);
-				delete Info;
-				delete Counter;
-			}
-		}
-	}
-
-	HGLShaderProgram & HGLShaderProgram::operator=(const HGLShaderProgram & Param)
-	{
-		MangerCounterAndShader(Param);
-		return *this;
+		glDeleteProgram(ID);
+		delete Info;
 	}
 
 	bool HGLShaderProgram::SetShader(GLuint Vertex, GLuint Fragment)
 	{
-		MangerCounterAndShader();
 		glAttachShader(ID, Vertex);
 		glAttachShader(ID, Fragment);
 		return Link();
@@ -51,7 +34,6 @@ namespace HGLTool
 
 	void HGLShaderProgram::SetShader(GLuint ShaderID)
 	{
-		MangerCounterAndShader();
 		glAttachShader(ID, ShaderID);
 	}
 
@@ -109,55 +91,6 @@ namespace HGLTool
 	void HGLShaderProgram::SetMat4fv(const char * const Name, const glm::mat4 & value) const
 	{
 		glUniformMatrix4fv(glGetUniformLocation(ID, Name), 1, GL_FALSE, &value[0][0]);
-	}
-
-	void HGLShaderProgram::MangerCounterAndShader()
-	{
-		if (Counter == NULL)
-		{
-			Counter = new HGLReferenceCounter();
-			Counter->Increase();
-			ID = glCreateProgram();
-			Info = new char[INFOLENGTH];
-		}
-		else
-		{
-			if (!Counter->IsOnlyOne())
-			{
-				Counter->Decrease();
-				Counter = new HGLReferenceCounter();
-				Counter->Increase();
-				ID = glCreateProgram();
-				Info = new char[INFOLENGTH];
-			}
-		}
-	}
-
-	void HGLShaderProgram::MangerCounterAndShader(const HGLShaderProgram & Param)
-	{
-		if (Counter == NULL)
-		{
-			Counter = Param.Counter;
-		}
-		else
-		{
-			if (Counter->IsOnlyOne())
-			{
-				glDeleteProgram(ID);
-				delete Info;
-				delete Counter;
-
-				Counter = Param.Counter;
-			}
-			else
-			{
-				Counter->Decrease();
-				Counter = Param.Counter;
-			}
-		}
-		Counter->Increase();
-		ID = Param.ID;
-		Info = Param.Info;
 	}
 
 

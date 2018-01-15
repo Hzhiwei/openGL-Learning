@@ -122,11 +122,8 @@
     <ClCompile Include="GLTool\GLModel\HGLModel.cpp" />
     <ClCompile Include="GLTool\GLScenes\HGLScenes.cpp" />
     <ClCompile Include="GLTool\GLShader\HGLDynamicLightFragmentShader.cpp" />
-    <ClCompile Include="GLTool\GLShader\HGLshader.cpp" />
     <ClCompile Include="GLTool\GLShader\HGLShaderProgram.cpp" />
     <ClCompile Include="GLTool\GLTexture2D\HGLTexture2D.cpp" />
-    <ClCompile Include="HGLDynamicLightFragmentShader.cpp" />
-    <ClCompile Include="HGLPointLight.cpp" />
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -148,8 +145,6 @@
     <ClInclude Include="GLTool\GLShader\HGLShader.h" />
     <ClInclude Include="GLTool\GLShader\HGLShaderProgram.h" />
     <ClInclude Include="GLTool\GLTexture2D\HGLTexture2D.h" />
-    <ClInclude Include="HGLDynamicLightFragmentShader.h" />
-    <ClInclude Include="HGLPointLight.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GLTool\ShaderSource\LightTest.ss" />

@@ -31,35 +31,16 @@ namespace HGLTool
 
 	HGLMesh::HGLMesh()
 	{
-		CounterAndBufferManger();
+		glGenVertexArrays(1, &VAO);
+		glGenBuffers(1, &VBO);
+		glGenBuffers(1, &EBO);
 	}
-
-	HGLMesh::HGLMesh(const HGLMesh & Param)
-	{
-		CounterAndBufferManger(Param);
-	}
-
 
 	HGLMesh::~HGLMesh()
 	{
-		if (Counter != NULL)
-		{
-			if (Counter->Decrease())
-			{
-				if (VAO != 0)
-				{
-					glDeleteVertexArrays(1, &VAO);
-				}
-				if (VBO != 0)
-				{
-					glDeleteBuffers(1, &VBO);
-				}
-				if (EBO != 0)
-				{
-					glDeleteBuffers(1, &EBO);
-				}
-			}
-		}
+		glDeleteVertexArrays(1, &VAO);
+		glDeleteBuffers(1, &VBO);
+		glDeleteBuffers(1, &EBO);
 	}
 
 	void HGLMesh::Load(const vector<HMeshVertex>& vertex, const vector<GLuint>& index)
@@ -69,7 +50,7 @@ namespace HGLTool
 		PointNum = indices.size();
 	}
 
-	void HGLMesh::Load(const vector<HMeshVertex>& vertex, const vector<GLuint>& index, const HGLTexture2D & tex)
+	void HGLMesh::Load(const vector<HMeshVertex>& vertex, const vector<GLuint>& index, const std::shared_ptr<HGLTexture2D> & tex)
 	{
 		vertices = vertex;
 		indices = index;
@@ -77,13 +58,12 @@ namespace HGLTool
 		PointNum = indices.size();
 	}
 
-	void HGLMesh::Load(const HGLTexture2D & tex)
+	void HGLMesh::Load(const std::shared_ptr<HGLTexture2D> & tex)
 	{
-		CounterAndBufferManger();
 		texture = tex;
 	}
 
-	void HGLMesh::AttachShaderProgram(HGLShaderProgram & ImportShader)
+	void HGLMesh::AttachShaderProgram(const std::shared_ptr<HGLShaderProgram> & ImportShader)
 	{
 		ShaderProgram = ImportShader;
 	}
@@ -92,8 +72,8 @@ namespace HGLTool
 	{
 		glActiveTexture(GL_TEXTURE0);
 
-		texture.ActiveAndBind(GL_TEXTURE0);
-		ShaderProgram.Use();
+		texture->ActiveAndBind(GL_TEXTURE0);
+		ShaderProgram->Use();
 		glBindVertexArray(VAO);
 
 		glDrawElements(GL_TRIANGLES, PointNum, GL_UNSIGNED_INT, 0);
@@ -104,21 +84,6 @@ namespace HGLTool
 
 	void HGLMesh::Clear()
 	{
-		if (VAO != 0)
-		{
-			glDeleteVertexArrays(1, &VAO);
-			VAO = 0;
-		}
-		if (VBO == 0)
-		{
-			glDeleteBuffers(1, &VBO);
-			VBO = 0;
-		}
-		if (EBO == 0)
-		{
-			glDeleteBuffers(1, &EBO);
-			EBO = 0;
-		}
 		vertices.clear();
 		indices.clear();
 	}
@@ -148,60 +113,6 @@ namespace HGLTool
 		glBindVertexArray(0);
 	}
 
-	void HGLMesh::CounterAndBufferManger()
-	{
-		if (Counter == NULL)
-		{
-			Counter = new HGLReferenceCounter();
-			Counter->Increase();
-			glGenVertexArrays(1, &VAO);
-			glGenBuffers(1, &VBO);
-			glGenBuffers(1, &EBO);
-		}
-		else
-		{
-			if (!Counter->IsOnlyOne())
-			{
-				Counter->Decrease();
-				Counter = new HGLReferenceCounter();
-				Counter->Increase();
-				glGenVertexArrays(1, &VAO);
-				glGenBuffers(1, &VBO);
-				glGenBuffers(1, &EBO);
-			}
-		}
-	}
-
-	void HGLMesh::CounterAndBufferManger(const HGLMesh & Param)
-	{
-		if (Counter == NULL)
-		{
-			Counter = Param.Counter;
-			Counter->Increase();
-			VAO = Param.VAO;
-			VBO = Param.VBO;
-			EBO = Param.EBO;
-			ShaderProgram = Param.ShaderProgram;
-			texture = Param.texture;
-			PointNum = Param.PointNum;
-		}
-		else
-		{
-			if (!Counter->IsOnlyOne())
-			{
-				Counter->Decrease();
-				Counter = new HGLReferenceCounter();
-				Counter->Increase();
-				VAO = Param.VAO;
-				VBO = Param.VBO;
-				EBO = Param.EBO;
-				ShaderProgram = Param.ShaderProgram;
-				texture = Param.texture;
-				PointNum = Param.PointNum;
-			}
-		}
-	}
-
 
 	HGLModel::HGLModel()
 	{
@@ -209,15 +120,12 @@ namespace HGLTool
 		cout << "vertex:" << endl << vertex.GetCompileInfo() << endl;
 		HGLShader<GL_FRAGMENT_SHADER> fragment(fragmentShader);
 		cout << "fragment:" << endl << fragment.GetCompileInfo() << endl;
-		ShaderProgram = new HGLShaderProgram(vertex.GetID(), fragment.GetID());
+		ShaderProgram = std::make_shared<HGLShaderProgram>(vertex.GetID(), fragment.GetID());
 		cout << "program:" << endl << ShaderProgram->GetLinkInfo() << endl;
 	}
 	HGLModel::~HGLModel()
 	{
-		if (ShaderProgram != NULL)
-		{
-			delete ShaderProgram;
-		}
+		ShaderProgram.reset();
 	}
 	bool HGLModel::Load(const string & Path)
 	{
@@ -246,7 +154,7 @@ namespace HGLTool
 		ShaderProgram->SetMat4fv("modelMatrix", ModelMatrix);
 		for (int i = 0; i < meshList.size(); ++i)
 		{
-			meshList[i].Draw(Camera);
+			meshList[i]->Draw(Camera);
 		}
 	}
 
@@ -271,7 +179,7 @@ namespace HGLTool
 	{
 		vector<HMeshVertex> meshVertexTemp;
 		vector<GLuint> meshIndexTemp;
-		HGLTexture2D textureTemp;
+		std::shared_ptr<HGLTexture2D> textureTemp(new HGLTexture2D);
 
 		for (int i = 0; i < Mesh->mNumVertices; ++i)
 		{
@@ -325,22 +233,22 @@ namespace HGLTool
 		aiMaterial * material = Scene->mMaterials[Mesh->mMaterialIndex];
 		textureTemp = processFristTexture(material);
 
-		HGLMesh meshTemp;
-		meshTemp.Load(meshVertexTemp, meshIndexTemp, textureTemp);
-		meshTemp.SetupMesh();
-		meshTemp.AttachShaderProgram(*ShaderProgram);
+		std::shared_ptr<HGLMesh> meshTemp(new HGLMesh);
+		meshTemp->Load(meshVertexTemp, meshIndexTemp, textureTemp);
+		meshTemp->SetupMesh();
+		meshTemp->AttachShaderProgram(ShaderProgram);
 		meshList.push_back(meshTemp);
 	}
 
-	HGLTexture2D & HGLModel::processFristTexture(aiMaterial * Mat)
+	std::shared_ptr<HGLTexture2D> & HGLModel::processFristTexture(aiMaterial * Mat)
 	{
 		aiString str;
-		HGLTexture2D temp;
+		std::shared_ptr<HGLTexture2D> temp(new HGLTexture2D);
 		Mat->GetTexture(aiTextureType_DIFFUSE, 0, &str);
 		string texturePath(str.C_Str());
 		if (textures.find(texturePath) == textures.end())
 		{
-			temp.LoadFromFile(directory + "/" + texturePath);
+			temp->LoadFromFile(directory + "/" + texturePath);
 			textures[texturePath] = temp;
 		}
 		return textures[texturePath];

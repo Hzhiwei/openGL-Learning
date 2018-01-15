@@ -24,12 +24,16 @@ namespace HGLTool
 	{
 	public:
 		HGLTexture2D();
-		HGLTexture2D(const HGLTexture2D & Param);
 		HGLTexture2D(GLuint InternalFormate, GLuint W, GLuint H, GLuint Border, GLenum Type, const void * const Ptr, HTextureMode M = HTextureMode::ambient);
 		HGLTexture2D(string Path, HTextureMode M = HTextureMode::ambient);
 		~HGLTexture2D();
-		HGLTexture2D & operator=(const HGLTexture2D & Param);
 
+	private:
+		//禁用拷贝、赋值构造函数
+		HGLTexture2D(const HGLTexture2D & Param) {};
+		HGLTexture2D & operator=(const HGLTexture2D & Param) {};
+
+	public:
 		void LoadFromData(GLuint InternalFormate, GLuint W, GLuint H, GLuint Border, GLenum Type, const void * const Ptr);
 		bool LoadFromFile(string Path);
 		void Bind();
@@ -39,17 +43,11 @@ namespace HGLTool
 		GLuint GetID();
 
 	private:
-		//新建Texture时的ID与Counter处理
-		void CounterAndTextureManger();
-		//从Param拷贝Texture时的ID与Counter处理
-		void CounterAndTextureManger(const HGLTexture2D & Param);
 
 	public:
 		HTextureMode Mode = HTextureMode::ambient;
 
 	private:
 		GLuint ID = 0;
-		HGLReferenceCounter *Counter = NULL;
-		bool SourceObjects = false;
 	};
 }

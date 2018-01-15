@@ -5,6 +5,7 @@
 #include <gtc/type_ptr.hpp>
 #include <iostream>
 #include <vector>
+#include <memory>
 #include <map>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -34,17 +35,21 @@ namespace HGLTool
 	{
 	public:
 		HGLMesh();
-		HGLMesh::HGLMesh(const HGLMesh & Param);
 		~HGLMesh();
 
-		//加载顶点列表，三角形定点索引
+	private:
+		HGLMesh(const HGLMesh & Param) {};
+		HGLMesh & operator=(const HGLMesh & Param) {}
+
+	public:
+		//加载顶点列表，三角形顶点索引
 		void Load(const vector<HMeshVertex> &vertex, const vector<GLuint> &index);
-		//加载顶点列表，三角形定点索引，纹理
-		void Load(const vector<HMeshVertex> &vertex, const vector<GLuint> &index, const HGLTexture2D &tex);
+		//加载顶点列表，三角形顶点索引，纹理
+		void Load(const vector<HMeshVertex> &vertex, const vector<GLuint> &index, const std::shared_ptr<HGLTexture2D> & tex);
 		//加载纹理
-		void Load(const HGLTexture2D & tex);
+		void Load(const std::shared_ptr<HGLTexture2D> & tex);
 		//设置着色器
-		void AttachShaderProgram(HGLShaderProgram & ImportShader);
+		void AttachShaderProgram(const std::shared_ptr<HGLShaderProgram> & ImportShader);
 		//绘制网格
 		void Draw(const HGLCamera & Camera) const;
 		//清除数据
@@ -53,22 +58,14 @@ namespace HGLTool
 		void SetupMesh();
 
 	private:
-		//新建
-		void CounterAndBufferManger();
-		//从Param拷贝
-		void CounterAndBufferManger(const HGLMesh & Param);
-
-	private:
 		//顶点列表
 		vector<HMeshVertex> vertices;
 		//三角形定点索引
 		vector<GLuint> indices;
 		//纹理
-		HGLTexture2D texture;
+		std::shared_ptr<HGLTexture2D> texture;
 		//此网格使用的着色器
-		HGLShaderProgram ShaderProgram;
-
-		HGLReferenceCounter *Counter = NULL;
+		std::shared_ptr<HGLShaderProgram> ShaderProgram;
 
 		GLuint VAO = 0;
 		GLuint VBO = 0;
@@ -89,14 +86,14 @@ namespace HGLTool
 	private:
 		void processNode(aiNode *Node, const aiScene *Scene);
 		void processMesh(aiMesh *Mesh, const aiScene *Scene);
-		HGLTexture2D & processFristTexture(aiMaterial * Mat);
+		std::shared_ptr<HGLTexture2D> & processFristTexture(aiMaterial * Mat);
 
 	private:
-		vector<HGLMesh> meshList;
+		vector<std::shared_ptr<HGLMesh>> meshList;
 		string directory;
-		std::map<std::string, HGLTexture2D> textures;
+		std::map<std::string, std::shared_ptr<HGLTexture2D>> textures;
 		//模型矩阵
 		glm::mat4 ModelMatrix;
-		HGLShaderProgram *ShaderProgram;
+		std::shared_ptr<HGLShaderProgram> ShaderProgram;
 	};
 }

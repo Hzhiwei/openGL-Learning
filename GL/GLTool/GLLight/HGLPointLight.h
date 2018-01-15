@@ -24,7 +24,6 @@ namespace HGLTool
 	class HGLPointLight : public HGLLight
 	{
 	public:
-		
 		HGLPointLight() : HGLLight(HGLLightMode::PointLight), Position(0.0f, 0.0f, 0.0f) {}
 		~HGLPointLight() {}
 

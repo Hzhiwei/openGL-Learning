@@ -22,14 +22,16 @@ namespace HGLTool
 	public:
 		//默认构造函数
 		HGLShaderProgram();
-		//拷贝构造函数
-		HGLShaderProgram(const HGLShaderProgram & Param);
 		//输入顶点着色器ID和片段着色器ID的构造函数，内部直接链接
 		HGLShaderProgram(GLuint Vertex, GLuint Fragment);
 		//析构
 		~HGLShaderProgram();
-		HGLShaderProgram & operator=(const HGLShaderProgram & Param);
 
+	private:
+		HGLShaderProgram(const HGLShaderProgram & Param) {}
+		HGLShaderProgram & operator=(const HGLShaderProgram & Param) {}
+
+	public:
 		//设置顶点着色器，片段着色器，内部直接链接
 		bool SetShader(GLuint Vertex, GLuint Fragment);
 		//设置单个着色器
@@ -50,14 +52,8 @@ namespace HGLTool
 		void SetMat4fv(const char * const Name, const glm::mat4 &value) const;
 
 	protected:
-		void MangerCounterAndShader();
-		void MangerCounterAndShader(const HGLShaderProgram & Param);
-
-	protected:
 		GLuint ID = 0;
 		char *Info;
-
-		HGLReferenceCounter *Counter = NULL;
 	};
 
 

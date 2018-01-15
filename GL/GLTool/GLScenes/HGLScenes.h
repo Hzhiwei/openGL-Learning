@@ -18,6 +18,11 @@ namespace HGLTool
 		HGLScenes();
 		~HGLScenes();
 
+	private:
+		HGLScenes(const HGLScenes &) {}
+		HGLScenes & operator=(const HGLScenes &) {}
+
+	public:
 		void AddModel(std::shared_ptr<HGLModel> Model);
 		void AddLight(std::shared_ptr<HGLLight> Light);
 
