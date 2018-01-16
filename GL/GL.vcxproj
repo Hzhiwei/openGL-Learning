@@ -121,7 +121,7 @@
     <ClCompile Include="GLTool\GLCamera\HGLCamera.cpp" />
     <ClCompile Include="GLTool\GLModel\HGLModel.cpp" />
     <ClCompile Include="GLTool\GLScenes\HGLScenes.cpp" />
-    <ClCompile Include="GLTool\GLShader\HGLDynamicLightFragmentShader.cpp" />
+    <ClCompile Include="GLTool\GLShader\HGLDynamicFragmentShader.cpp" />
     <ClCompile Include="GLTool\GLShader\HGLShaderProgram.cpp" />
     <ClCompile Include="GLTool\GLTexture2D\HGLTexture2D.cpp" />
     <ClCompile Include="main.cpp">
@@ -141,7 +141,7 @@
     <ClInclude Include="GLTool\GLModel\HGLModel.h" />
     <ClInclude Include="GLTool\GLReferenceCounter\HGLReferenceCounter.h" />
     <ClInclude Include="GLTool\GLScenes\HGLScenes.h" />
-    <ClInclude Include="GLTool\GLShader\HGLDynamicLightFragmentShader.h" />
+    <ClInclude Include="GLTool\GLShader\HGLDynamicFragmentShader.h" />
     <ClInclude Include="GLTool\GLShader\HGLShader.h" />
     <ClInclude Include="GLTool\GLShader\HGLShaderProgram.h" />
     <ClInclude Include="GLTool\GLTexture2D\HGLTexture2D.h" />

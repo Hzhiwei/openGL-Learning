@@ -20,8 +20,6 @@ namespace HGLTool
 
 	public:
 		glm::u8vec3 Color;
-
-	protected:
 		const HGLLightMode Mode;
 	};
 }

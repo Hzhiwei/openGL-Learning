@@ -27,6 +27,8 @@ namespace HGLTool
 	private:
 		HGLScenes(const HGLScenes &) {}
 		HGLScenes & operator=(const HGLScenes &) {}
+
+	public:             
 		
 	public:
 		void AddModel(std::shared_ptr<HGLModel> Model);
