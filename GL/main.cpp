@@ -9,12 +9,19 @@
 #include <assimp/scene.h>
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
+#include <memory>
 
 #include "GLTool/GLShader/HGLShader.h"
 #include "GLTool/GLTexture2D/HGLTexture2D.h"
 #include "GLTool/GLCamera/HGLCamera.h"
 #include "GLTool/GLModel/HGLModel.h"
 #include "GLTool/GLShader/HGLShaderProgram.h"
+#include "GLTool/GLShader/HGLDynamicFragmentShader.h"
+#include "GLTool/GLLight/HGLLight.h"
+#include "GLTool/GLLight/HGLAmbientLight.h"
+#include "GLTool/GLLight/HGLParallelLight.h"
+#include "GLTool/GLLight/HGLPointLight.h"
+#include "GLTool/GLLight/HGLSpotLight.h"
 
 using namespace std;
 using namespace HGLTool;
@@ -62,6 +69,21 @@ int main()
 	{
 		cout << "GLAD initialize failed!" << endl;
 	}
+
+
+
+	std::vector<std::shared_ptr<HGLLight>> Lights;
+	Lights.push_back(make_shared<HGLAmbientLight>());
+	Lights.push_back(make_shared<HGLParallelLight>());
+	Lights.push_back(make_shared<HGLParallelLight>());
+	Lights.push_back(make_shared<HGLPointLight>());
+	Lights.push_back(make_shared<HGLSpotLight>());
+	Lights.push_back(make_shared<HGLSpotLight>());
+	Lights.push_back(make_shared<HGLSpotLight>());
+
+	HGLDynamicFragmentShader DFS(Lights);
+	cout << DFS.GetCompileInfo() << endl;
+	cout << DFS.GetSourceCode() << endl;
 
 
 	HGLModel model;

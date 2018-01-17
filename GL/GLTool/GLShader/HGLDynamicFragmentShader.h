@@ -25,12 +25,15 @@ namespace HGLTool
 	{
 	public:
 		HGLDynamicFragmentShader();
+		HGLDynamicFragmentShader(const std::vector<std::shared_ptr<HGLLight>> & Lights);
 		~HGLDynamicFragmentShader();
 
 	public:
 		bool DynamicCompile(const std::vector<std::shared_ptr<HGLLight>> & Lights);
+		string GetSourceCode();
 
 	private:
 		string IntToString(int Param);
+		string sourceCode;
 	};
 }

@@ -24,7 +24,7 @@ namespace HGLTool
 	class HGLPointLight : public HGLLight
 	{
 	public:
-		HGLPointLight() : HGLLight(HGLLightMode::PointLight), Position(0.0f, 0.0f, 0.0f) {}
+		HGLPointLight(glm::vec3 Pos = glm::vec3(0.0f, 0.0f, 0.0f)) : HGLLight(HGLLightMode::PointLight), Position(Pos) {}
 		~HGLPointLight() {}
 
 		void Move(const glm::vec3 P)

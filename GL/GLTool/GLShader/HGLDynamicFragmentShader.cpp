@@ -9,6 +9,11 @@ namespace HGLTool
 	{
 	}
 
+	HGLDynamicFragmentShader::HGLDynamicFragmentShader(const std::vector<std::shared_ptr<HGLLight>>& Lights)
+	{
+		DynamicCompile(Lights);
+	}
+
 
 	HGLDynamicFragmentShader::~HGLDynamicFragmentShader()
 	{
@@ -16,10 +21,11 @@ namespace HGLTool
 
 	bool HGLDynamicFragmentShader::DynamicCompile(const std::vector<std::shared_ptr<HGLLight>> & Lights)
 	{
-		string sourceCode(
+		sourceCode = "";
+		sourceCode += string(
 			"#version 450 core\n"
 			"in vec3 FragPos;\n"
-			"in vec3 Normal\n"
+			"in vec3 Normal;\n"
 			"in vec2 TexCoords;\n"
 			"out vec4 FragColor;\n"
 			"struct Material_Struct\n"
@@ -99,7 +105,7 @@ namespace HGLTool
 		}
 		if (spotLightNum != 0)
 		{
-			sourceCode += string("#define NUM_OF_SPOTLIGHT ") + IntToString(pointLightNum) + string("\n");
+			sourceCode += string("#define NUM_OF_SPOTLIGHT ") + IntToString(spotLightNum) + string("\n");
 			sourceCode = sourceCode + string("uniform SpotLight_Struct SpotLight[NUM_OF_SPOTLIGHT];\n");
 		}
 
@@ -114,41 +120,41 @@ namespace HGLTool
 		sourceCode += string(
 			"void main()\n"
 			"{\n"
-			"vec3 norm = normalize(Normal);\n"
-			"vec3 viewDir = normalize(viewPos - FragPos);\n"
-			"vec3 result = vec3(0.0f, 0.0f, 0.0f);\n");
+			"	vec3 norm = normalize(Normal);\n"
+			"	vec3 viewDir = normalize(viewPos - FragPos);\n"
+			"	vec3 result = vec3(0.0f, 0.0f, 0.0f);\n");
 
 		//环境光计算
 		sourceCode += string(
-			"for(int i = 0; i < NUM_OF_AMBIENTLIGHT; ++i)\n"
-			"{\n"
-			"	result += CalcAmbientLight(AmbientLight[i]);\n"
-			"}\n");
+			"	for(int i = 0; i < NUM_OF_AMBIENTLIGHT; ++i)\n"
+			"	{\n"
+			"		result += CalcAmbientLight(AmbientLight[i]);\n"
+			"	}\n");
 
 		//平行光计算
 		sourceCode += string(
-			"for(int i = 0; i < NUM_OF_PARALLELLIGHT; ++i)\n"
-			"{\n"
-			"	result += CalcParallelLight(ParallelLight[i], norm, viewDir);\n"
-			"}\n");
+			"	for(int i = 0; i < NUM_OF_PARALLELLIGHT; ++i)\n"
+			"	{\n"
+			"		result += CalcParallelLight(ParallelLight[i], norm, viewDir);\n"
+			"	}\n");
 
 		//点光源计算
 		sourceCode += string(
-			"for(int i = 0; i < NUM_OF_POINTLIGHT; ++i)\n"
-			"{\n"
-			"	result += CalcPointLight(PointLight[i], norm, FragPos, viewDir);\n"
-			"}\n");
+			"	for(int i = 0; i < NUM_OF_POINTLIGHT; ++i)\n"
+			"	{\n"
+			"		result += CalcPointLight(PointLight[i], norm, FragPos, viewDir);\n"
+			"	}\n");
 
 		//聚光灯计算
 		sourceCode += string(
-			"for(int i = 0; i < NUM_OF_SPOTLIGHT; ++i)\n"
-			"{\n"
-			"	result += CalcSpotLight(SpotLight[i], norm,FragPos, viewDir);\n"
-			"}\n");
+			"	for(int i = 0; i < NUM_OF_SPOTLIGHT; ++i)\n"
+			"	{\n"
+			"		result += CalcSpotLight(SpotLight[i], norm,FragPos, viewDir);\n"
+			"	}\n");
 
 		//颜色合成输出
 		sourceCode += string(
-			"FragColor = vec4(result, 1.0);\n"
+			"	FragColor = vec4(result, 1.0);\n"
 			"}\n");
 
 		//子函数
@@ -174,11 +180,11 @@ namespace HGLTool
 			"	vec3 reflectDir = reflect(-lightUnDir, normal);\n"
 			"	float spec = pow(max(dot(viewDir, reflectDir), 0.0f), Material.shininess);\n"
 			"	float distance = length(light.position - fragPos);\n"
-			"	float attenuation = 1.0f / (light.constant + light.liner * distance + light.quadratic * distance * distance));\n"
+			"	float attenuation = 1.0f / (light.constant + light.linear * distance + light.quadratic * distance * distance);\n"
 			"	vec3 diffuse = light.diffuse * diff * vec3(texture(Material.diffuse, TexCoords));\n"
 			"	vec3 specular = light.specular * spec * vec3(texture(Material.specular, TexCoords));\n"
-			"    diffuse *= attenuation;\n"
-			"    specular *= attenuation;\n"
+			"	diffuse *= attenuation;\n"
+			"	specular *= attenuation;\n"
 			"	return (diffuse + specular);\n"
 			"}\n"
 			"vec3 CalcSpotLight(SpotLight_Struct light, vec3 normal, vec3 fragPos, vec3 viewDir)\n"
@@ -188,19 +194,22 @@ namespace HGLTool
 			"	vec3 reflectDir = reflect(-lightUnDir, normal);\n"
 			"	float spec = pow(max(dot(viewDir, reflectDir), 0.0f), Material.shininess);\n"
 			"	float distance = length(light.position - fragPos);\n"
-			"	float attenuation = 1.0f / (light.constant + light.liner * distance + light.quadratic * distance * distance));\n"
+			"	float attenuation = 1.0f / (light.constant + light.linear * distance + light.quadratic * distance * distance);\n"
 			"	float cosTheta = dot(lightUnDir, normalize(-light.direction));\n"
-			"    float epsilon = light.innercutOff - light.outerCutOff;\n"
-			"    float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);\n"
+			"	float epsilon = light.innercutOff - light.outerCutOff;\n"
+			"	float intensity = clamp((cosTheta - light.outerCutOff) / epsilon, 0.0, 1.0);\n"
 			"	vec3 diffuse = light.diffuse * diff * vec3(texture(Material.diffuse, TexCoords));\n"
 			"	vec3 specular = light.specular * spec * vec3(texture(Material.specular, TexCoords));\n"
-			"    diffuse *= attenuation * intensity;\n"
-			"    specular *= attenuation * intensity;\n"
-			"    return (diffuse + specular);\n"
+			"	diffuse *= attenuation * intensity;\n"
+			"	specular *= attenuation * intensity;\n"
+			"	return (diffuse + specular);\n"
 			"}\n");
 
-
-		return true;
+		return Source(sourceCode);
+	}
+	string HGLDynamicFragmentShader::GetSourceCode()
+	{
+		return sourceCode;
 	}
 	string HGLDynamicFragmentShader::IntToString(int Param)
 	{

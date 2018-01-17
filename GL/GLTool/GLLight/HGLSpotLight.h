@@ -6,16 +6,19 @@
 
 namespace HGLTool
 {
-	class SpotLight : public HGLLight
+	class HGLSpotLight : public HGLLight
 	{
 	public:
-		SpotLight() : 
+		HGLSpotLight(glm::vec3 Pos = glm::vec3(0.0f, 0.0f, 0.0f),
+			glm::vec3 Dir = glm::vec3(0.0f, 0.0f, -1.0f),
+			float ICOC = cos(glm::radians(45.0f)),
+			float OCOC = cos(glm::radians(60.0f))) :
 			HGLLight(HGLLightMode::SpotLight),
-			Direction(0.0f, 0.0f, 0.0f),
-			Position(0.0f, 0.0f, -1.0f),
-			InnerCutOffCos(cos(glm::radians(45.0f))),
-			OuterCutOffCos(cos(glm::radians(60.0f))){}
-		~SpotLight() {}
+			Position(Pos),
+			Direction(Dir),
+			InnerCutOffCos(ICOC),
+			OuterCutOffCos(OCOC){}
+		~HGLSpotLight() {}
 
 		void SetDirectionWithoutNormalize(const glm::vec3 D) {Direction = D; }
 		void SetDirectionWithNormalize(const glm::vec3 D) {Direction = glm::normalize(D); }
