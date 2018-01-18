@@ -8,6 +8,11 @@ namespace HGLTool
 		glGenTextures(1, &ID);
 	}
 
+	HGLTexture2D::HGLTexture2D(const glm::vec3  & Color)
+	{
+		PureColor(Color);
+	}
+
 	HGLTexture2D::HGLTexture2D(GLuint InternalFormate, GLuint W, GLuint H, GLuint Border, GLenum Type, const void * const Ptr, HTextureMode M)
 	{
 		glGenTextures(1, &ID);
@@ -67,6 +72,11 @@ namespace HGLTool
 		{
 			return false;
 		}
+	}
+
+	void HGLTexture2D::PureColor(const glm::vec3 & Color)
+	{
+		LoadFromData(GL_RGB, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, &Color);
 	}
 
 	void HGLTexture2D::Bind()

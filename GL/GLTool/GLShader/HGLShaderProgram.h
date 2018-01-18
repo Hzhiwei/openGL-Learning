@@ -8,8 +8,6 @@
 #include <stdexcept>
 #include <glm.hpp>
 
-#include "../GLReferenceCounter/HGLReferenceCounter.h"
-
 
 #define INFOLENGTH 1024
 
@@ -50,6 +48,8 @@ namespace HGLTool
 		void SetFloat(const char * const Name, float value) const;
 		void SetMat4fv(const char * const Name, const GLfloat *value) const;
 		void SetMat4fv(const char * const Name, const glm::mat4 &value) const;
+		void SetVec3fv(const char * const Name, const glm::vec3 &value) const;
+		void SetVec4fv(const char * const Name, const glm::vec4 &value) const;
 
 	protected:
 		GLuint ID = 0;

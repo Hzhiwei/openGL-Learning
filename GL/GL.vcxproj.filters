@@ -18,9 +18,6 @@
     <Filter Include="GLTool\GLShader">
       <UniqueIdentifier>{d691e0dd-6f8d-4781-8576-7164342c324c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GLTool\GLReferenceCounter">
-      <UniqueIdentifier>{9748761c-2a83-4a9a-9b07-498c479b20c4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GLTool\GLTexture2D">
       <UniqueIdentifier>{157da8bd-582d-49c8-92c4-297005d55e7d}</UniqueIdentifier>
     </Filter>
@@ -68,6 +65,9 @@
     <ClCompile Include="GLTool\GLShader\HGLDynamicFragmentShader.cpp">
       <Filter>GLTool\GLShader</Filter>
     </ClCompile>
+    <ClCompile Include="GLTool\GLModel\HGLMesh.cpp">
+      <Filter>GLTool\GLModel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLAD\glad.h">
@@ -78,9 +78,6 @@
     </ClInclude>
     <ClInclude Include="GLTool\GLShader\HGLShader.h">
       <Filter>GLTool\GLShader</Filter>
-    </ClInclude>
-    <ClInclude Include="GLTool\GLReferenceCounter\HGLReferenceCounter.h">
-      <Filter>GLTool\GLReferenceCounter</Filter>
     </ClInclude>
     <ClInclude Include="GLTool\GLTexture2D\HGLTexture2D.h">
       <Filter>GLTool\GLTexture2D</Filter>
@@ -114,6 +111,9 @@
     </ClInclude>
     <ClInclude Include="GLTool\GLShader\HGLDynamicFragmentShader.h">
       <Filter>GLTool\GLShader</Filter>
+    </ClInclude>
+    <ClInclude Include="GLTool\GLModel\HGLMesh.h">
+      <Filter>GLTool\GLModel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

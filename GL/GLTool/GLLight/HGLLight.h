@@ -19,7 +19,9 @@ namespace HGLTool
 		~HGLLight() {};
 
 	public:
-		glm::u8vec3 Color;
+		glm::vec3 Color = glm::vec3(1.0f, 1.0f, 1.0f);
+		float Diffuse = 1.0f;
+		float Specular = 1.0f;
 		const HGLLightMode Mode;
 	};
 }

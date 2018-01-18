@@ -73,30 +73,25 @@ int main()
 
 
 	std::vector<std::shared_ptr<HGLLight>> Lights;
-	Lights.push_back(make_shared<HGLAmbientLight>());
-	Lights.push_back(make_shared<HGLParallelLight>());
-	Lights.push_back(make_shared<HGLParallelLight>());
-	Lights.push_back(make_shared<HGLPointLight>());
-	Lights.push_back(make_shared<HGLSpotLight>());
-	Lights.push_back(make_shared<HGLSpotLight>());
-	Lights.push_back(make_shared<HGLSpotLight>());
-
-	HGLDynamicFragmentShader DFS(Lights);
-	cout << DFS.GetCompileInfo() << endl;
-	cout << DFS.GetSourceCode() << endl;
+	std::shared_ptr<HGLSpotLight> LightA = std::make_shared<HGLSpotLight>(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::radians(45.0f), glm::radians(60.0f));
+	Lights.push_back(LightA);
+	LightA->Diffuse = 0.5f;
+	LightA->Specular = 0.5f;
 
 
 	HGLModel model;
-	model.Load("bones/10.obj");
-	//model.Load("nanosuit/nanosuit.obj");
+	//model.Load("bones/10.obj");
+	model.SetLightsList(Lights);
+	model.CompileShaderWithLights();
+	model.Load("nanosuit/nanosuit.obj");
+
 
 	glEnable(GL_DEPTH_TEST);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	//viewCamera.MoveDeep(-6);
-	viewCamera.MoveVertical(3);
-	viewCamera.RotateVertical(glm::radians(-45.0f));
-	viewCamera.RotateVertical(glm::radians(-45.0f));
+	viewCamera.MoveVertical(12);
+	viewCamera.MoveDeep(-12);
 
 	while (!glfwWindowShouldClose(mainWindow))
 	{
@@ -132,9 +127,9 @@ void processInput(GLFWwindow *window)
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 		viewCamera.MoveDeep(-0.05f);
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		viewCamera.MoveHorizon(0.05f);
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		viewCamera.MoveHorizon(-0.05f);
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		viewCamera.MoveHorizon(0.05f);
 
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT))
 	{

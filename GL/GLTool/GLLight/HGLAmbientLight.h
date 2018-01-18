@@ -7,7 +7,7 @@ namespace HGLTool
 	class HGLAmbientLight : public HGLLight
 	{
 	public :
-		HGLAmbientLight(float Intens = 0.02f) : HGLLight(HGLLightMode::AmbientLight), Intensity(Intens) {}
+		HGLAmbientLight() : HGLLight(HGLLightMode::AmbientLight) {}
 		~HGLAmbientLight() {}
 
 	public:

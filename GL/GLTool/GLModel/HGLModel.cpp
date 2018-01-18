@@ -8,15 +8,18 @@ namespace HGLTool
 		"layout(location = 0) in vec3 aPos;\n"
 		"layout(location = 1) in vec3 aNormal;\n"
 		"layout(location = 2) in vec2 aTex;\n"
-		"out vec2 Tex;\n"
+		"out vec3 FragPos;\n"
+		"out vec3 Normal;\n"
+		"out vec2 TexCoords;\n"
 		"uniform mat4 view;\n"
 		"uniform mat4 modelMatrix;\n"
 		"void main()\n"
 		"{\n"
 		"	gl_Position = view * modelMatrix * vec4(aPos, 1.0f);\n"
-		"	Tex = aTex;\n"
+		"	FragPos = gl_Position.xyz;\n"
+		"	Normal = aNormal;\n"
+		"	TexCoords = aTex;\n"
 		"}\n\0";
-	
 	static const char *fragmentShader =
 		"#version 450 core\n"
 		"in vec2 Tex;\n"
@@ -29,104 +32,19 @@ namespace HGLTool
 		"}\n\0";
 
 
-	HGLMesh::HGLMesh()
-	{
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-		glGenBuffers(1, &EBO);
-	}
-
-	HGLMesh::~HGLMesh()
-	{
-		glDeleteVertexArrays(1, &VAO);
-		glDeleteBuffers(1, &VBO);
-		glDeleteBuffers(1, &EBO);
-	}
-
-	void HGLMesh::Load(const vector<HMeshVertex>& vertex, const vector<GLuint>& index)
-	{
-		vertices = vertex;
-		indices = index;
-		PointNum = indices.size();
-	}
-
-	void HGLMesh::Load(const vector<HMeshVertex>& vertex, const vector<GLuint>& index, const std::shared_ptr<HGLTexture2D> & tex)
-	{
-		vertices = vertex;
-		indices = index;
-		texture = tex;
-		PointNum = indices.size();
-	}
-
-	void HGLMesh::Load(const std::shared_ptr<HGLTexture2D> & tex)
-	{
-		texture = tex;
-	}
-
-	void HGLMesh::AttachShaderProgram(const std::shared_ptr<HGLShaderProgram> & ImportShader)
-	{
-		ShaderProgram = ImportShader;
-	}
-
-	void HGLMesh::Draw(const HGLCamera & Camera) const
-	{
-		glActiveTexture(GL_TEXTURE0);
-
-		texture->ActiveAndBind(GL_TEXTURE0);
-		ShaderProgram->Use();
-		glBindVertexArray(VAO);
-
-		glDrawElements(GL_TRIANGLES, PointNum, GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
-
-		glActiveTexture(GL_TEXTURE0);
-	}
-
-	void HGLMesh::Clear()
-	{
-		vertices.clear();
-		indices.clear();
-	}
-
-	void HGLMesh::SetupMesh()
-	{
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-		glGenBuffers(1, &EBO);
-
-		glBindVertexArray(VAO);
-
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(HMeshVertex), vertices.data(), GL_STATIC_DRAW);
-
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(HMeshVertex), (void *)offsetof(HMeshVertex, Position));
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(HMeshVertex), (void *)offsetof(HMeshVertex, Normal));
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(HMeshVertex), (void *)offsetof(HMeshVertex, TexCoords));
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), indices.data(), GL_STATIC_DRAW);
-
-		glBindVertexArray(0);
-	}
-
 
 	HGLModel::HGLModel()
 	{
-		HGLShader<GL_VERTEX_SHADER> vertex(vectorShader);
-		cout << "vertex:" << endl << vertex.GetCompileInfo() << endl;
-		HGLShader<GL_FRAGMENT_SHADER> fragment(fragmentShader);
-		cout << "fragment:" << endl << fragment.GetCompileInfo() << endl;
-		ShaderProgram = std::make_shared<HGLShaderProgram>(vertex.GetID(), fragment.GetID());
-		cout << "program:" << endl << ShaderProgram->GetLinkInfo() << endl;
+		glm::vec3 dataTemp(0.6f, 0.6f, 0.6f);
+		std::shared_ptr<HGLTexture2D> tempDefaultTexture = std::shared_ptr<HGLTexture2D>(new HGLTexture2D(GL_RGB, 1, 1, 0, GL_FLOAT, &dataTemp));
+		textures[""] = tempDefaultTexture;
 	}
+
 	HGLModel::~HGLModel()
 	{
 		ShaderProgram.reset();
 	}
+
 	bool HGLModel::Load(const string & Path)
 	{
 		Assimp::Importer importer;
@@ -147,11 +65,73 @@ namespace HGLTool
 
 		return true;
 	}
+
 	void HGLModel::Draw(const HGLCamera & Camera) const
 	{
-		ShaderProgram->SetInt("textureParam", 0);
 		ShaderProgram->SetMat4fv("view", Camera.Get());
 		ShaderProgram->SetMat4fv("modelMatrix", ModelMatrix);
+
+		unsigned int ambientLightNum = 0;
+		unsigned int parallelLightNum = 0;
+		unsigned int pointLightNum = 0;
+		unsigned int spotLightNum = 0;
+
+		for (int i = lightsList->size() - 1; i >= 0; --i)
+		{
+			switch ((*lightsList)[i]->Mode)
+			{
+				case HGLLightMode::AmbientLight :
+				{
+					string numStringTemp = IntToString(ambientLightNum);
+					ShaderProgram->SetVec3fv(string("AmbientLight[" + numStringTemp + "].color").c_str(), static_cast<HGLAmbientLight *>((*lightsList)[i].get())->Color);
+					ShaderProgram->SetFloat(string("AmbientLight[" + numStringTemp + "].intensity").c_str(), static_cast<HGLAmbientLight *>((*lightsList)[i].get())->Intensity);
+					ShaderProgram->SetFloat(string("AmbientLight[" + numStringTemp + "].diffuse").c_str(), static_cast<HGLAmbientLight *>((*lightsList)[i].get())->Diffuse);
+					ShaderProgram->SetFloat(string("AmbientLight[" + numStringTemp + "].specular").c_str(), static_cast<HGLAmbientLight *>((*lightsList)[i].get())->Specular);
+					++ambientLightNum;
+					break;
+				}
+				case HGLLightMode::ParallelLight :
+				{
+					string numStringTemp = IntToString(parallelLightNum);
+					ShaderProgram->SetVec3fv(string("ParallelLight[" + numStringTemp + "].color").c_str(), static_cast<HGLParallelLight *>((*lightsList)[i].get())->Color);
+					ShaderProgram->SetVec3fv(string("ParallelLight[" + numStringTemp + "].direction").c_str(), static_cast<HGLParallelLight *>((*lightsList)[i].get())->Direction);
+					ShaderProgram->SetFloat(string("ParallelLight[" + numStringTemp + "].diffuse").c_str(), static_cast<HGLParallelLight *>((*lightsList)[i].get())->Diffuse);
+					ShaderProgram->SetFloat(string("ParallelLight[" + numStringTemp + "].specular").c_str(), static_cast<HGLParallelLight *>((*lightsList)[i].get())->Specular);
+					++ambientLightNum;
+					break;
+				}
+				case HGLLightMode::PointLight:
+				{
+					string numStringTemp = IntToString(pointLightNum);
+					ShaderProgram->SetVec3fv(string("PointLight[" + numStringTemp + "].color").c_str(), static_cast<HGLPointLight *>((*lightsList)[i].get())->Color);
+					ShaderProgram->SetVec3fv(string("PointLight[" + numStringTemp + "].position").c_str(), static_cast<HGLPointLight *>((*lightsList)[i].get())->Position);
+					ShaderProgram->SetFloat(string("PointLight[" + numStringTemp + "].constant").c_str(), static_cast<HGLPointLight *>((*lightsList)[i].get())->Kc);
+					ShaderProgram->SetFloat(string("PointLight[" + numStringTemp + "].linear").c_str(), static_cast<HGLPointLight *>((*lightsList)[i].get())->Kl);
+					ShaderProgram->SetFloat(string("PointLight[" + numStringTemp + "].quadratic").c_str(), static_cast<HGLPointLight *>((*lightsList)[i].get())->Kd);
+					ShaderProgram->SetFloat(string("PointLight[" + numStringTemp + "].diffuse").c_str(), static_cast<HGLPointLight *>((*lightsList)[i].get())->Diffuse);
+					ShaderProgram->SetFloat(string("PointLight[" + numStringTemp + "].specular").c_str(), static_cast<HGLPointLight *>((*lightsList)[i].get())->Specular);
+					++pointLightNum;
+					break;
+				}
+				case HGLLightMode::SpotLight:
+				{
+					string numStringTemp = IntToString(spotLightNum);
+					ShaderProgram->SetVec3fv(string("SpotLight[" + numStringTemp + "].color").c_str(), static_cast<HGLSpotLight *>((*lightsList)[i].get())->Color);
+					ShaderProgram->SetVec3fv(string("SpotLight[" + numStringTemp + "].position").c_str(), static_cast<HGLSpotLight *>((*lightsList)[i].get())->Position);
+					ShaderProgram->SetVec3fv(string("SpotLight[" + numStringTemp + "].direction").c_str(), static_cast<HGLSpotLight *>((*lightsList)[i].get())->Direction);
+					ShaderProgram->SetFloat(string("SpotLight[" + numStringTemp + "].innercutOff").c_str(), static_cast<HGLSpotLight *>((*lightsList)[i].get())->InnerCutOffCos);
+					ShaderProgram->SetFloat(string("SpotLight[" + numStringTemp + "].outerCutOff").c_str(), static_cast<HGLSpotLight *>((*lightsList)[i].get())->OuterCutOffCos);
+					ShaderProgram->SetFloat(string("SpotLight[" + numStringTemp + "].constant").c_str(), static_cast<HGLSpotLight *>((*lightsList)[i].get())->Kc);
+					ShaderProgram->SetFloat(string("SpotLight[" + numStringTemp + "].linear").c_str(), static_cast<HGLSpotLight *>((*lightsList)[i].get())->Kl);
+					ShaderProgram->SetFloat(string("SpotLight[" + numStringTemp + "].quadratic").c_str(), static_cast<HGLSpotLight *>((*lightsList)[i].get())->Kd);
+					ShaderProgram->SetFloat(string("SpotLight[" + numStringTemp + "].diffuse").c_str(), static_cast<HGLSpotLight *>((*lightsList)[i].get())->Diffuse);
+					ShaderProgram->SetFloat(string("SpotLight[" + numStringTemp + "].specular").c_str(), static_cast<HGLSpotLight *>((*lightsList)[i].get())->Specular);
+					++spotLightNum;
+					break;
+				}
+			}
+		}
+
 		for (int i = 0; i < meshList.size(); ++i)
 		{
 			meshList[i]->Draw(Camera);
@@ -161,6 +141,28 @@ namespace HGLTool
 	void HGLModel::SetModelMatrix(const glm::mat4 Matrix)
 	{
 		ModelMatrix = Matrix;
+	}
+
+	void HGLModel::CompileShaderWithLights()
+	{
+		std::shared_ptr<HGLShader<GL_VERTEX_SHADER>> vertex = std::make_shared<HGLShader<GL_VERTEX_SHADER>>(vectorShader);
+		//cout << "vertex:" << endl << vertex->GetCompileInfo() << endl;
+		std::shared_ptr<HGLDynamicFragmentShader> fragment = std::make_shared<HGLDynamicFragmentShader>(*lightsList);
+		//cout << "fragment:" << endl << fragment->GetCompileInfo() << endl;
+		ShaderProgram = std::make_shared<HGLShaderProgram>(vertex->GetID(), fragment->GetID());
+		cout << "program:" << endl << ShaderProgram->GetLinkInfo() << endl;
+	}
+
+	void HGLModel::SetLightsList(const std::vector<std::shared_ptr<HGLLight>> & Lights)
+	{
+		lightsList = &Lights;
+	}
+
+	string HGLModel::IntToString(int Param) const
+	{
+		stringstream ss;
+		ss << Param;
+		return ss.str();
 	}
 
 	void HGLModel::processNode(aiNode * Node, const aiScene * Scene)
@@ -177,13 +179,15 @@ namespace HGLTool
 
 	void HGLModel::processMesh(aiMesh * Mesh, const aiScene * Scene)
 	{
-		vector<HMeshVertex> meshVertexTemp;
+		vector<HGLMeshVertexStruct> meshVertexTemp;
 		vector<GLuint> meshIndexTemp;
-		std::shared_ptr<HGLTexture2D> textureTemp(new HGLTexture2D);
+		std::shared_ptr<HGLTexture2D> * diffTextureTemp;
+		std::shared_ptr<HGLTexture2D> * specTextureTemp;
+		HGLMaterialStruct materialTemp;
 
 		for (int i = 0; i < Mesh->mNumVertices; ++i)
 		{
-			HMeshVertex vertexTemp;
+			HGLMeshVertexStruct vertexTemp;
 			if (Mesh->HasPositions())
 			{
 				vertexTemp.Position.x = Mesh->mVertices[i].x;
@@ -231,26 +235,50 @@ namespace HGLTool
 		}
 
 		aiMaterial * material = Scene->mMaterials[Mesh->mMaterialIndex];
-		textureTemp = processFristTexture(material);
+		materialTemp = processMaterial(material);
 
 		std::shared_ptr<HGLMesh> meshTemp(new HGLMesh);
-		meshTemp->Load(meshVertexTemp, meshIndexTemp, textureTemp);
+		meshTemp->Load(meshVertexTemp, meshIndexTemp, materialTemp);
 		meshTemp->SetupMesh();
 		meshTemp->AttachShaderProgram(ShaderProgram);
 		meshList.push_back(meshTemp);
 	}
 
-	std::shared_ptr<HGLTexture2D> & HGLModel::processFristTexture(aiMaterial * Mat)
+	//aiTextureType_SPECULAR
+	HGLMaterialStruct HGLModel::processMaterial(const aiMaterial * Mat)
 	{
 		aiString str;
-		std::shared_ptr<HGLTexture2D> temp(new HGLTexture2D);
+		HGLMaterialStruct temp;
+		std::shared_ptr<HGLTexture2D> tempTexture;
+
 		Mat->GetTexture(aiTextureType_DIFFUSE, 0, &str);
-		string texturePath(str.C_Str());
-		if (textures.find(texturePath) == textures.end())
+		string diffTexturePath(str.C_Str());
+		if (textures.find(diffTexturePath) == textures.end())
 		{
-			temp->LoadFromFile(directory + "/" + texturePath);
-			textures[texturePath] = temp;
+			tempTexture = make_shared<HGLTexture2D>(directory + "/" + diffTexturePath);
+			textures[diffTexturePath] = tempTexture;
+			temp.diffuseTexture = tempTexture;
 		}
-		return textures[texturePath];
+		else
+		{
+			temp.diffuseTexture = textures[diffTexturePath];
+		}
+
+		Mat->GetTexture(aiTextureType_SPECULAR, 0, &str);
+		string specTexturePath(str.C_Str());
+		if (textures.find(specTexturePath) == textures.end())
+		{
+			tempTexture = make_shared<HGLTexture2D>(directory + "/" + specTexturePath);
+			textures[specTexturePath] = tempTexture;
+			temp.specularTexture = tempTexture;
+		}
+		else
+		{
+			temp.specularTexture = textures[diffTexturePath];
+		}
+
+		temp.shininess = 32;
+
+		return temp;
 	}
 }

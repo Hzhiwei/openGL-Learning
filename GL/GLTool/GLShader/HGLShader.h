@@ -8,8 +8,6 @@
 #include <stdexcept>
 #include <glm.hpp>
 
-#include "../GLReferenceCounter/HGLReferenceCounter.h"
-
 
 #define INFOLENGTH 1024
 

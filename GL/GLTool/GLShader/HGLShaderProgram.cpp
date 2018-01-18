@@ -93,6 +93,15 @@ namespace HGLTool
 		glUniformMatrix4fv(glGetUniformLocation(ID, Name), 1, GL_FALSE, &value[0][0]);
 	}
 
+	void HGLShaderProgram::SetVec3fv(const char * const Name, const glm::vec3 & value) const
+	{
+		glUniform3fv(glGetUniformLocation(ID, Name), 1, &value[0]);
+	}
+
+	void HGLShaderProgram::SetVec4fv(const char * const Name, const glm::vec4 & value) const
+	{
+		glUniform4fv(glGetUniformLocation(ID, Name), 1, &value[0]);
+	}
 
 	HGLShaderFileSource::HGLShaderFileSource()
 	{

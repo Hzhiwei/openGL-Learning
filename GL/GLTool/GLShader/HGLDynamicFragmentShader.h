@@ -33,7 +33,7 @@ namespace HGLTool
 		string GetSourceCode();
 
 	private:
-		string IntToString(int Param);
+		string IntToString(int Param) const;
 		string sourceCode;
 	};
 }

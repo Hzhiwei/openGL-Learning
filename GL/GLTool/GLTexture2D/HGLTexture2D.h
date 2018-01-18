@@ -2,8 +2,8 @@
 
 #include "../../GLAD/glad.h"
 #include <stb_image.h>
+#include <glm.hpp>
 #include <iostream>
-#include "../GLReferenceCounter/HGLReferenceCounter.h"
 
 using namespace std;
 
@@ -24,6 +24,7 @@ namespace HGLTool
 	{
 	public:
 		HGLTexture2D();
+		HGLTexture2D(const glm::vec3  & Color);
 		HGLTexture2D(GLuint InternalFormate, GLuint W, GLuint H, GLuint Border, GLenum Type, const void * const Ptr, HTextureMode M = HTextureMode::ambient);
 		HGLTexture2D(string Path, HTextureMode M = HTextureMode::ambient);
 		~HGLTexture2D();
@@ -36,6 +37,7 @@ namespace HGLTool
 	public:
 		void LoadFromData(GLuint InternalFormate, GLuint W, GLuint H, GLuint Border, GLenum Type, const void * const Ptr);
 		bool LoadFromFile(string Path);
+		void PureColor(const glm::vec3  & Color);
 		void Bind();
 		void ActiveAndBind(GLenum Unit) const;
 		void UnBind();

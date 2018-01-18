@@ -24,19 +24,14 @@ namespace HGLTool
 	class HGLPointLight : public HGLLight
 	{
 	public:
-		HGLPointLight(glm::vec3 Pos = glm::vec3(0.0f, 0.0f, 0.0f)) : HGLLight(HGLLightMode::PointLight), Position(Pos) {}
+		HGLPointLight(glm::vec3 Pos) : HGLLight(HGLLightMode::PointLight), Position(Pos) {}
 		~HGLPointLight() {}
-
-		void Move(const glm::vec3 P)
-		{
-			Position = P;
-		}
 
 	public:
 		glm::vec3 Position;
 		float Kc = 1.0f;
-		float Kl = 0.14f;
-		float Kd = 0.17f;
+		float Kl = 0.022f;
+		float Kd = 0.0019f;
 	};
 }
 
