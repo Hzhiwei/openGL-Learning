@@ -72,9 +72,8 @@ int main()
 
 
 	std::vector<std::shared_ptr<HGLLight>> Lights;
-	std::shared_ptr<HGLAmbientLight> LightA = std::make_shared<HGLAmbientLight>();
+	std::shared_ptr<HGLParallelLight> LightA = std::make_shared<HGLParallelLight>(glm::vec3(0.0f, 0.0f, -1.0f));
 	Lights.push_back(LightA);
-	LightA->Intensity = 0.5f;
 	LightA->Diffuse = 0.5f;
 	LightA->Specular = 0.5f;
 
@@ -82,8 +81,8 @@ int main()
 	HGLModel model;
 	model.SetLightsList(Lights);
 	model.CompileShaderWithLights();
-	model.Load("nanosuit/nanosuit.obj");
-	//model.Load("bones/10.obj");
+	//model.Load("nanosuit/nanosuit.obj");
+	model.Load("bones/10.obj");
 
 
 	glEnable(GL_DEPTH_TEST);

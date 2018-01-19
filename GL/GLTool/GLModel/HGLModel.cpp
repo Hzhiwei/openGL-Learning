@@ -35,9 +35,7 @@ namespace HGLTool
 
 	HGLModel::HGLModel()
 	{
-		glm::vec3 dataTemp(0.6f, 0.6f, 0.6f);
-		std::shared_ptr<HGLTexture2D> tempDefaultTexture = std::shared_ptr<HGLTexture2D>(new HGLTexture2D(GL_RGB, 1, 1, 0, GL_FLOAT, &dataTemp));
-		textures[""] = tempDefaultTexture;
+
 	}
 
 	HGLModel::~HGLModel()
@@ -58,8 +56,7 @@ namespace HGLTool
 
 		meshList.clear();
 		textures.clear();
-		glm::vec3 dataTemp(0.6f, 0.6f, 0.6f);
-		std::shared_ptr<HGLTexture2D> tempDefaultTexture = std::shared_ptr<HGLTexture2D>(new HGLTexture2D(GL_RGB, 1, 1, 0, GL_FLOAT, &dataTemp));
+		std::shared_ptr<HGLTexture2D> tempDefaultTexture = std::make_shared<HGLTexture2D>("default.jpg");
 		textures[""] = tempDefaultTexture;
 
 		directory = Path.substr(0, Path.find_last_of('/'));
@@ -258,7 +255,7 @@ namespace HGLTool
 		string diffTexturePath(str.C_Str());
 		if (textures.find(diffTexturePath) == textures.end())
 		{
-			tempTexture = make_shared<HGLTexture2D>(directory + "/" + diffTexturePath);
+			tempTexture = std::make_shared<HGLTexture2D>(directory + "/" + diffTexturePath);
 			textures[diffTexturePath] = tempTexture;
 			temp.diffuseTexture = tempTexture;
 		}
@@ -271,13 +268,13 @@ namespace HGLTool
 		string specTexturePath(str.C_Str());
 		if (textures.find(specTexturePath) == textures.end())
 		{
-			tempTexture = make_shared<HGLTexture2D>(directory + "/" + specTexturePath);
+			tempTexture = std::make_shared<HGLTexture2D>(directory + "/" + specTexturePath);
 			textures[specTexturePath] = tempTexture;
 			temp.specularTexture = tempTexture;
 		}
 		else
 		{
-			temp.specularTexture = textures[diffTexturePath];
+			temp.specularTexture = textures[specTexturePath];
 		}
 
 		temp.shininess = 32;

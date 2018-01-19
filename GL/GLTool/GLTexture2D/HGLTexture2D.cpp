@@ -50,17 +50,13 @@ namespace HGLTool
 		if (data)
 		{
 			GLenum format;
-			if (nrComponents == 1)
+
+			switch (nrComponents)
 			{
-				format = GL_RED;
-			}
-			else if (nrComponents == 3)
-			{
-				format = GL_RGB;
-			}
-			else if (nrComponents == 4)
-			{
-				format = GL_RGBA;
+				case 1: format = GL_RED; break;
+				case 2: format = GL_RG; break;
+				case 3: format = GL_RGB; break;
+				case 4: format = GL_RGBA; break;
 			}
 
 			glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
