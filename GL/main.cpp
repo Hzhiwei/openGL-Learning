@@ -74,28 +74,19 @@ int main()
 
 	HGLScenes scense;
 
-	//std::shared_ptr<HGLCameraParallelLight> LightA = std::make_shared<HGLCameraParallelLight>(&viewCamera);
-	//LightA->Diffuse = 0.5f;
-	//LightA->Specular = 0.5f;
-	//scense.AddLight(LightA);
-	//std::shared_ptr<HGLAmbientLight> LightB = std::make_shared<HGLAmbientLight>();
-	//LightB->Intensity = 0.08f;
-	//scense.AddLight(LightB);
-
-	std::vector<std::shared_ptr<HGLLight>> Lights;
 	std::shared_ptr<HGLCameraParallelLight> LightA = std::make_shared<HGLCameraParallelLight>(&viewCamera);
-	Lights.push_back(LightA);
 	LightA->Diffuse = 0.5f;
 	LightA->Specular = 0.5f;
+	scense.AddLight(LightA);
 	std::shared_ptr<HGLAmbientLight> LightB = std::make_shared<HGLAmbientLight>();
-	Lights.push_back(LightB);
 	LightB->Intensity = 0.08f;
+	scense.AddLight(LightB);
 
+	std::shared_ptr<HGLModel> model = std::make_shared<HGLModel>();
+	model->Load("bones/10.obj");
+	scense.AddModel(model);
 
-	HGLModel model;
-	model.Load("bones/10.obj");
-	model.SetLightsList(Lights);
-	model.CompileShaderWithLights();
+	scense.DynamicCompileShader();
 
 
 	glEnable(GL_DEPTH_TEST);
@@ -112,7 +103,7 @@ int main()
 		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		model.Draw(viewCamera);
+		scense.Draw(viewCamera);
 
 		glfwSwapBuffers(mainWindow);
 		glfwPollEvents();
