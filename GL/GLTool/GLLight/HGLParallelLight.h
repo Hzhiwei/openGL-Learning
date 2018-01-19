@@ -11,6 +11,12 @@ namespace HGLTool
 		HGLParallelLight(glm::vec3 Dir) : HGLLight(HGLLightMode::ParallelLight) , Direction(Dir) {}
 		~HGLParallelLight() {}
 
+	public :
+		virtual glm::vec3 GetDir() 
+		{
+			return Direction;
+		}
+
 	public:
 		glm::vec3 Direction;
 	};

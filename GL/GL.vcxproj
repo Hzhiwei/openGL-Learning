@@ -135,6 +135,7 @@
     <ClInclude Include="GLAD\khrplatform.h" />
     <ClInclude Include="GLTool\GLCamera\HGLCamera.h" />
     <ClInclude Include="GLTool\GLLight\HGLAmbientLight.h" />
+    <ClInclude Include="GLTool\GLLight\HGLCameraParallelLight.h" />
     <ClInclude Include="GLTool\GLLight\HGLLight.h" />
     <ClInclude Include="GLTool\GLLight\HGLParallelLight.h" />
     <ClInclude Include="GLTool\GLLight\HGLPointLight.h" />

@@ -20,6 +20,7 @@
 #include "GLTool/GLLight/HGLLight.h"
 #include "GLTool/GLLight/HGLAmbientLight.h"
 #include "GLTool/GLLight/HGLParallelLight.h"
+#include "GLTool/GLLight/HGLCameraParallelLight.h"
 #include "GLTool/GLLight/HGLPointLight.h"
 #include "GLTool/GLLight/HGLSpotLight.h"
 
@@ -72,10 +73,13 @@ int main()
 
 
 	std::vector<std::shared_ptr<HGLLight>> Lights;
-	std::shared_ptr<HGLParallelLight> LightA = std::make_shared<HGLParallelLight>(glm::vec3(0.0f, 0.0f, -1.0f));
+	std::shared_ptr<HGLCameraParallelLight> LightA = std::make_shared<HGLCameraParallelLight>(&viewCamera);
 	Lights.push_back(LightA);
 	LightA->Diffuse = 0.5f;
 	LightA->Specular = 0.5f;
+	std::shared_ptr<HGLAmbientLight> LightB = std::make_shared<HGLAmbientLight>();
+	Lights.push_back(LightB);
+	LightB->Intensity = 0.08f;
 
 
 	HGLModel model;

@@ -94,7 +94,7 @@ namespace HGLTool
 				{
 					string numStringTemp = IntToString(parallelLightNum);
 					ShaderProgram->SetVec3fv(string("ParallelLight[" + numStringTemp + "].color").c_str(), static_cast<HGLParallelLight *>((*lightsList)[i].get())->Color);
-					ShaderProgram->SetVec3fv(string("ParallelLight[" + numStringTemp + "].direction").c_str(), static_cast<HGLParallelLight *>((*lightsList)[i].get())->Direction);
+					ShaderProgram->SetVec3fv(string("ParallelLight[" + numStringTemp + "].direction").c_str(), static_cast<HGLParallelLight *>((*lightsList)[i].get())->GetDir());
 					ShaderProgram->SetFloat(string("ParallelLight[" + numStringTemp + "].diffuse").c_str(), static_cast<HGLParallelLight *>((*lightsList)[i].get())->Diffuse);
 					ShaderProgram->SetFloat(string("ParallelLight[" + numStringTemp + "].specular").c_str(), static_cast<HGLParallelLight *>((*lightsList)[i].get())->Specular);
 					++ambientLightNum;

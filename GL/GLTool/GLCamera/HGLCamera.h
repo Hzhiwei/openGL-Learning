@@ -40,6 +40,7 @@ namespace HGLTool
 		void RotateHorizon(float Angle);
 		void RotateVertical(float Angle);
 		void RotateDeep(float Angle);
+		glm::vec3 GetFront();
 		glm::mat4 Get() const;
 
 	private:
@@ -104,6 +105,10 @@ namespace HGLTool
 	inline void HGLCamera::RotateDeep(float Angle)
 	{
 		cameraUp = glm::normalize(cameraUp - tan(Angle) * glm::normalize(glm::cross(cameraFront, cameraUp)));
+	}
+	inline glm::vec3 HGLCamera::GetFront()
+	{
+		return cameraFront;
 	}
 	inline glm::mat4 HGLCamera::Get() const
 	{

@@ -115,6 +115,9 @@
     <ClInclude Include="GLTool\GLModel\HGLMesh.h">
       <Filter>GLTool\GLModel</Filter>
     </ClInclude>
+    <ClInclude Include="GLTool\GLLight\HGLCameraParallelLight.h">
+      <Filter>GLTool\GLLight</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="GLTool\ShaderSource\LightTest.ss">
