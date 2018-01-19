@@ -45,7 +45,7 @@ namespace HGLTool
 
 	private:
 		vector<std::shared_ptr<HGLMesh>> meshList;
-		const std::vector<std::shared_ptr<HGLLight>> * lightsList = NULL;
+		const std::vector<std::shared_ptr<HGLLight>> * lightsList = new std::vector<std::shared_ptr<HGLLight>>();
 		string directory;
 		std::map<std::string, std::shared_ptr<HGLTexture2D>> textures;
 		//Ä£ÐÍ¾ØÕó
