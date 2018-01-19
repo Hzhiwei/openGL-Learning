@@ -150,7 +150,10 @@ namespace HGLTool
 		std::shared_ptr<HGLDynamicFragmentShader> fragment = std::make_shared<HGLDynamicFragmentShader>(*lightsList);
 		//cout << "fragment:" << endl << fragment->GetCompileInfo() << endl;
 		ShaderProgram = std::make_shared<HGLShaderProgram>(vertex->GetID(), fragment->GetID());
-		cout << "program:" << endl << ShaderProgram->GetLinkInfo() << endl;
+		for (int i = meshList.size() - 1; i >= 0; --i)
+		{
+			meshList[i]->AttachShaderProgram(ShaderProgram);
+		}
 	}
 
 	void HGLModel::SetLightsList(const std::vector<std::shared_ptr<HGLLight>> & Lights)

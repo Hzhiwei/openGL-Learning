@@ -23,6 +23,7 @@
 #include "GLTool/GLLight/HGLCameraParallelLight.h"
 #include "GLTool/GLLight/HGLPointLight.h"
 #include "GLTool/GLLight/HGLSpotLight.h"
+#include "GLTool/GLScenes/HGLScenes.h"
 
 using namespace std;
 using namespace HGLTool;
@@ -71,6 +72,15 @@ int main()
 		cout << "GLAD initialize failed!" << endl;
 	}
 
+	HGLScenes scense;
+
+	//std::shared_ptr<HGLCameraParallelLight> LightA = std::make_shared<HGLCameraParallelLight>(&viewCamera);
+	//LightA->Diffuse = 0.5f;
+	//LightA->Specular = 0.5f;
+	//scense.AddLight(LightA);
+	//std::shared_ptr<HGLAmbientLight> LightB = std::make_shared<HGLAmbientLight>();
+	//LightB->Intensity = 0.08f;
+	//scense.AddLight(LightB);
 
 	std::vector<std::shared_ptr<HGLLight>> Lights;
 	std::shared_ptr<HGLCameraParallelLight> LightA = std::make_shared<HGLCameraParallelLight>(&viewCamera);
@@ -83,10 +93,9 @@ int main()
 
 
 	HGLModel model;
+	model.Load("bones/10.obj");
 	model.SetLightsList(Lights);
 	model.CompileShaderWithLights();
-	//model.Load("nanosuit/nanosuit.obj");
-	model.Load("bones/10.obj");
 
 
 	glEnable(GL_DEPTH_TEST);
@@ -94,13 +103,13 @@ int main()
 
 	//viewCamera.MoveDeep(-6);
 	//viewCamera.MoveVertical(12);
-	viewCamera.MoveDeep(-12);
+	viewCamera.MoveDeep(-5);
 
 	while (!glfwWindowShouldClose(mainWindow))
 	{
 		processInput(mainWindow);
 
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		model.Draw(viewCamera);
@@ -121,27 +130,26 @@ void resizeWindow_callback(GLFWwindow* window, int width, int height)
 }
 
 
-bool MousePushed = false;
+bool leftMousePushed = false;
+bool rightMousePushed = false;
 
 void processInput(GLFWwindow *window)
 {
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		viewCamera.MoveDeep(0.15f);
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		viewCamera.MoveDeep(-0.15f);
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		viewCamera.MoveHorizon(-0.15f);
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		viewCamera.MoveHorizon(0.15f);
-
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT))
 	{
-		MousePushed = true;
+		leftMousePushed = true;
 	}
 	else
 	{
-
-		MousePushed = false;
+		leftMousePushed = false;
+	}
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT))
+	{
+		rightMousePushed = true;
+	}
+	else
+	{
+		rightMousePushed = false;
 	}
 }
 
@@ -157,7 +165,12 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	lastX = xpos;
 	lastY = ypos;
 
-	if (MousePushed)
+	if (rightMousePushed)
+	{
+		viewCamera.MoveHorizon(-xOffset);
+		viewCamera.MoveVertical(yOffset);
+	}
+	else if (leftMousePushed)
 	{
 		viewCamera.RotateHorizon(glm::radians(-xOffset));
 		viewCamera.RotateVertical(glm::radians(yOffset));
@@ -166,6 +179,6 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-
+	viewCamera.MoveDeep(yoffset);
 }
 
