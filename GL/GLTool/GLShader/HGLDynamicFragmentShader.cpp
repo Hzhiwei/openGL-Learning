@@ -215,15 +215,14 @@ namespace HGLTool
 			"	float spec = pow(max(dot(viewDir, reflectDir), 0.0f), Material.shininess);\n"
 			"	float distance = length(light.position - fragPos);\n"
 			"	float attenuation = 1.0f / (light.constant + light.linear * distance + light.quadratic * distance * distance);\n"
-			"	float cosTheta = dot(lightUnDir, normalize(light.direction));\n"
+			"	float cosTheta = dot(lightUnDir, normalize(-light.direction));\n"
 			"	float epsilon = light.innercutOff - light.outerCutOff;\n"
 			"	float intensity = clamp((cosTheta - light.outerCutOff) / epsilon, 0.0, 1.0);\n"
 			"	vec3 diffuse = light.diffuse * diff * vec3(texture(Material.diffuseTexture, TexCoords)) * light.color;\n"
 			"	vec3 specular = light.specular * spec * vec3(texture(Material.specularTexture, TexCoords)) * light.color;\n"
 			"	diffuse *= attenuation * intensity;\n"
 			"	specular *= attenuation * intensity;\n"
-			"	//return (diffuse + specular);\n"
-			"	return vec3(cosTheta, 0, 0);\n"
+			"	return (diffuse + specular);\n"
 			"}\n");
 
 		cout << sourceCode << endl;

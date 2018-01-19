@@ -16,7 +16,7 @@ namespace HGLTool
 		"void main()\n"
 		"{\n"
 		"	gl_Position = view * modelMatrix * vec4(aPos, 1.0f);\n"
-		"	FragPos = gl_Position.xyz;\n"
+		"	FragPos = (modelMatrix * vec4(aPos, 1.0f)).xyz;\n"
 		"	Normal = aNormal;\n"
 		"	TexCoords = aTex;\n"
 		"}\n\0";

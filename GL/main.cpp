@@ -73,7 +73,7 @@ int main()
 
 
 	std::vector<std::shared_ptr<HGLLight>> Lights;
-	std::shared_ptr<HGLSpotLight> LightA = std::make_shared<HGLSpotLight>(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::radians(45.0f), glm::radians(60.0f));
+	std::shared_ptr<HGLPointLight> LightA = std::make_shared<HGLPointLight>(glm::vec3(0.0f, 5.0f, -10.0f));
 	Lights.push_back(LightA);
 	LightA->Diffuse = 0.5f;
 	LightA->Specular = 0.5f;
@@ -123,13 +123,13 @@ bool MousePushed = false;
 void processInput(GLFWwindow *window)
 {
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		viewCamera.MoveDeep(0.05f);
+		viewCamera.MoveDeep(0.15f);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		viewCamera.MoveDeep(-0.05f);
+		viewCamera.MoveDeep(-0.15f);
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		viewCamera.MoveHorizon(-0.05f);
+		viewCamera.MoveHorizon(-0.15f);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		viewCamera.MoveHorizon(0.05f);
+		viewCamera.MoveHorizon(0.15f);
 
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT))
 	{
