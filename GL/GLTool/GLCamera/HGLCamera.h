@@ -41,12 +41,14 @@ namespace HGLTool
 		void RotateVertical(float Angle);
 		void RotateDeep(float Angle);
 		glm::vec3 GetFront();
+		glm::vec3 GetPos();
 		glm::mat4 Get() const;
 
-	private:
 		glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
 		glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+	private:
 		glm::mat4 projection;
 	};
 
@@ -109,6 +111,10 @@ namespace HGLTool
 	inline glm::vec3 HGLCamera::GetFront()
 	{
 		return cameraFront;
+	}
+	inline glm::vec3 HGLCamera::GetPos()
+	{
+		return cameraPos;
 	}
 	inline glm::mat4 HGLCamera::Get() const
 	{

@@ -38,6 +38,8 @@ void resizeWindow_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+string IntToString(int Param);
+void InitScense(HGLScenes &scense);
 
 HGLCamera viewCamera(glm::radians(45.0f), 1.0f, 0.1f, 200.0f);
 
@@ -82,9 +84,7 @@ int main()
 	LightB->Intensity = 0.08f;
 	scense.AddLight(LightB);
 
-	std::shared_ptr<HGLModel> model = std::make_shared<HGLModel>();
-	model->Load("bones/10.obj");
-	scense.AddModel(model);
+	InitScense(scense);
 
 	scense.DynamicCompileShader();
 
@@ -94,7 +94,7 @@ int main()
 
 	//viewCamera.MoveDeep(-6);
 	//viewCamera.MoveVertical(12);
-	viewCamera.MoveDeep(-5);
+	viewCamera.MoveDeep(-3);
 
 	while (!glfwWindowShouldClose(mainWindow))
 	{
@@ -158,18 +158,72 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 
 	if (rightMousePushed)
 	{
-		viewCamera.MoveHorizon(-xOffset);
-		viewCamera.MoveVertical(yOffset);
+		viewCamera.MoveHorizon(-xOffset * 0.02f);
+		viewCamera.MoveVertical(yOffset * 0.02f);
 	}
 	else if (leftMousePushed)
 	{
-		viewCamera.RotateHorizon(glm::radians(-xOffset));
-		viewCamera.RotateVertical(glm::radians(yOffset));
+		glm::mat4 rotationMat(1);
+		rotationMat = glm::rotate(rotationMat, glm::radians(-xOffset), glm::vec3(0.0, 1.0, 0.0));
+		viewCamera.SetPos(glm::vec3(rotationMat * glm::vec4(viewCamera.GetPos(), 1.0f)));
+
+		viewCamera.SetFront(glm::vec3(0, viewCamera.cameraPos.y, 0) - viewCamera.cameraPos);
 	}
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	viewCamera.MoveDeep(yoffset);
+	viewCamera.MoveDeep(yoffset / 10.0f);
 }
 
+
+string IntToString(int Param)
+{
+	stringstream ss;
+	ss << Param;
+	return ss.str();
+}
+
+
+void InitScense(HGLScenes &scense)
+{
+	std::shared_ptr<HGLModel> model[24];
+	float offset[24][2] =
+	{
+		{3.278, 0.174},
+		{3.217, 0.159},
+		{3.148, 0.145},
+		{3.088, 0.152},
+		{3.016, 0.163},
+		{2.93, 0.198},
+		{2.86, 0.22},
+		{2.77, 0.247},
+		{2.66, 0.273},
+		{2.531, 0.31},
+		{2.401, 0.324},
+		{2.277, 0.335},
+		{2.154, 0.367},
+		{2.014, 0.354},
+		{1.877, 0.327},
+		{1.75, 0.273},
+		{1.61, 0.206},
+		{1.461, 0.164},
+		{1.322, 0.129},
+		{1.189, 0.115},
+		{1.036, 0.115},
+		{0.872, 0.15},
+		{0.717, 0.196},
+		{0.584, 0.243},
+	};
+
+	for (int i = 1; i <= 24; ++i)
+	{
+		glm::mat4 ModelMatrix;
+		model[0] = std::make_shared<HGLModel>();
+		model[0]->Load("bones/" + IntToString(i) + ".obj");
+		ModelMatrix = glm::translate(ModelMatrix, glm::vec3(0.0f, offset[i][0], offset[i][1]));
+		model[0]->SetModelMatrix(ModelMatrix);
+		scense.AddModel(model[0]);
+		cout << i << endl;
+	}
+}

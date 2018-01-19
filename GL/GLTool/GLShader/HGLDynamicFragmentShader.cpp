@@ -225,8 +225,6 @@ namespace HGLTool
 			"	return (diffuse + specular);\n"
 			"}\n");
 
-		cout << sourceCode << endl;
-
 		return Source(sourceCode);
 	}
 	string HGLDynamicFragmentShader::GetSourceCode()
