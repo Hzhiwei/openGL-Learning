@@ -11,6 +11,6 @@ namespace HGLTool
 		~HGLAmbientLight() {}
 
 	public:
-		float Intensity;
+		float Intensity = 1.0f;
 	};
 }

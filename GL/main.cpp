@@ -71,26 +71,26 @@ int main()
 	}
 
 
-
 	std::vector<std::shared_ptr<HGLLight>> Lights;
-	std::shared_ptr<HGLPointLight> LightA = std::make_shared<HGLPointLight>(glm::vec3(0.0f, 5.0f, -10.0f));
+	std::shared_ptr<HGLAmbientLight> LightA = std::make_shared<HGLAmbientLight>();
 	Lights.push_back(LightA);
+	LightA->Intensity = 0.5f;
 	LightA->Diffuse = 0.5f;
 	LightA->Specular = 0.5f;
 
 
 	HGLModel model;
-	//model.Load("bones/10.obj");
 	model.SetLightsList(Lights);
 	model.CompileShaderWithLights();
 	model.Load("nanosuit/nanosuit.obj");
+	//model.Load("bones/10.obj");
 
 
 	glEnable(GL_DEPTH_TEST);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	//viewCamera.MoveDeep(-6);
-	viewCamera.MoveVertical(12);
+	//viewCamera.MoveVertical(12);
 	viewCamera.MoveDeep(-12);
 
 	while (!glfwWindowShouldClose(mainWindow))

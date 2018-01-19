@@ -56,8 +56,11 @@ namespace HGLTool
 			return false;
 		}
 
-		textures.clear();
 		meshList.clear();
+		textures.clear();
+		glm::vec3 dataTemp(0.6f, 0.6f, 0.6f);
+		std::shared_ptr<HGLTexture2D> tempDefaultTexture = std::shared_ptr<HGLTexture2D>(new HGLTexture2D(GL_RGB, 1, 1, 0, GL_FLOAT, &dataTemp));
+		textures[""] = tempDefaultTexture;
 
 		directory = Path.substr(0, Path.find_last_of('/'));
 
