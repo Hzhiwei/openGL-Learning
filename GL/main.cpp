@@ -30,8 +30,8 @@ using namespace HGLTool;
 
 
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 800;
+const unsigned int SCR_WIDTH = 500;
+const unsigned int SCR_HEIGHT = 500;
 
 
 void resizeWindow_callback(GLFWwindow* window, int width, int height);
@@ -39,7 +39,7 @@ void processInput(GLFWwindow *window);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 string IntToString(int Param);
-void InitScense(HGLScenes &scense);
+void LoadScenseModel(HGLScenes &scense);
 
 HGLCamera viewCamera(glm::radians(45.0f), 1.0f, 0.1f, 200.0f);
 
@@ -77,14 +77,14 @@ int main()
 	HGLScenes scense;
 
 	std::shared_ptr<HGLCameraParallelLight> LightA = std::make_shared<HGLCameraParallelLight>(&viewCamera);
-	LightA->Diffuse = 0.5f;
+	LightA->Diffuse = 0.7f;
 	LightA->Specular = 0.5f;
 	scense.AddLight(LightA);
 	std::shared_ptr<HGLAmbientLight> LightB = std::make_shared<HGLAmbientLight>();
 	LightB->Intensity = 0.08f;
 	scense.AddLight(LightB);
 
-	InitScense(scense);
+	LoadScenseModel(scense);
 
 	scense.DynamicCompileShader();
 
@@ -118,6 +118,7 @@ int main()
 void resizeWindow_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
+	viewCamera.Reset(glm::radians(45.0f), (float)width / height, 0.001f, 200.0f);
 }
 
 
@@ -185,7 +186,7 @@ string IntToString(int Param)
 }
 
 
-void InitScense(HGLScenes &scense)
+void LoadScenseModel(HGLScenes &scense)
 {
 	std::shared_ptr<HGLModel> model[24];
 	float offset[24][2] =
@@ -216,12 +217,12 @@ void InitScense(HGLScenes &scense)
 		{0.584, 0.243},
 	};
 
-	for (int i = 1; i <= 24; ++i)
+	for (int i = 1; i <= 1; ++i)
 	{
 		glm::mat4 ModelMatrix;
 		model[0] = std::make_shared<HGLModel>();
 		model[0]->Load("bones/" + IntToString(i) + ".obj");
-		ModelMatrix = glm::translate(ModelMatrix, glm::vec3(0.0f, offset[i][0], offset[i][1]));
+		ModelMatrix = glm::translate(ModelMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
 		model[0]->SetModelMatrix(ModelMatrix);
 		scense.AddModel(model[0]);
 		cout << i << endl;

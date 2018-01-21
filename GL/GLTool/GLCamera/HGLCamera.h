@@ -11,13 +11,12 @@ namespace HGLTool
 	class HGLCamera
 	{
 	public:
-		template<typename T>
 		//透视投影
 		//Fovy		: fovy angle
 		//Aspect	: 宽高比
 		//Near		: 近平面
 		//Far		: 远平面
-		HGLCamera(T Fovy, T Aspect, T Near, T Far);
+		HGLCamera(float Fovy, float Aspect, float Near, float Far);
 		//正视投影
 		//Left		: 左
 		//Right		: 右
@@ -25,11 +24,12 @@ namespace HGLTool
 		//Top		: 顶
 		//Near		: 近平面
 		//Far		: 远平面
-		template<typename T>
-		HGLCamera(T Left, T Right, T Bottom, T Top, T Near, T Far);
+		HGLCamera(float Left, float Right, float Bottom, float Top, float Near, float Far);
 
 		~HGLCamera();
 
+		void Reset(float Fovy, float Aspec, float Near, float Far);
+		void Reset(float Leffloat, float Righfloat, float Bofloatfloatom, float floatop, float Near, float Far);
 		void SetPos(glm::vec3 &Pos);
 		void SetFront(glm::vec3 &Front);
 		void SetUp(glm::vec3 &Up);
@@ -52,14 +52,12 @@ namespace HGLTool
 		glm::mat4 projection;
 	};
 
-	template<typename T>
-	HGLCamera::HGLCamera(T Fovy, T Aspect, T Near, T Far)
+	inline void HGLCamera::Reset(float Fovy, float Aspect, float Near, float Far)
 	{
 		projection = glm::perspective(Fovy, Aspect, Near, Far);
 	}
 
-	template<typename T>
-	HGLCamera::HGLCamera(T Left, T Right, T Bottom, T Top, T Near, T Far)
+	inline void HGLCamera::Reset(float Left, float Right, float Bottom, float Top, float Near, float Far)
 	{
 		projection = glm::ortho(Left, Right, Bottom, Top, Near, Far);
 	}

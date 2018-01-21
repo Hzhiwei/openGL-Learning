@@ -20,17 +20,6 @@ namespace HGLTool
 		"	Normal = aNormal;\n"
 		"	TexCoords = aTex;\n"
 		"}\n\0";
-	static const char *fragmentShader =
-		"#version 450 core\n"
-		"in vec2 Tex;\n"
-		"out vec4 FragColor;\n"
-		"uniform sampler2D textureParam;\n"
-		"void main()\n"
-		"{\n"
-		"	//FragColor = texture(textureParam, Tex);\n"
-		"	FragColor = vec4(1.0f, 1.0f, 1.0f,1.0f);\n"
-		"}\n\0";
-
 
 
 	HGLModel::HGLModel()
