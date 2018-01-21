@@ -87,7 +87,7 @@
       <SDLCheck>false</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glfw3.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3dll.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -117,39 +117,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GLAD\glad.c" />
-    <ClCompile Include="GLTool\GLCamera\HGLCamera.cpp" />
-    <ClCompile Include="GLTool\GLModel\HGLMesh.cpp" />
-    <ClCompile Include="GLTool\GLModel\HGLModel.cpp" />
-    <ClCompile Include="GLTool\GLScenes\HGLScenes.cpp" />
-    <ClCompile Include="GLTool\GLShader\HGLDynamicFragmentShader.cpp" />
-    <ClCompile Include="GLTool\GLShader\HGLShaderProgram.cpp" />
-    <ClCompile Include="GLTool\GLTexture2D\HGLTexture2D.cpp" />
+    <ClCompile Include="HGLTool\HGLCamera\HGLCamera.cpp" />
+    <ClCompile Include="HGLTool\HGLModel\HGLMesh.cpp" />
+    <ClCompile Include="HGLTool\HGLModel\HGLModel.cpp" />
+    <ClCompile Include="HGLTool\HGLScenes\HGLScenes.cpp" />
+    <ClCompile Include="HGLTool\HGLShader\HGLDynamicFragmentShader.cpp" />
+    <ClCompile Include="HGLTool\HGLShader\HGLShaderProgram.cpp" />
+    <ClCompile Include="HGLTool\HGLTexture2D\HGLTexture2D.cpp" />
+    <ClCompile Include="lib\glad\glad.c" />
+    <ClCompile Include="lib\stb_image\stb_image.cpp" />
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GLAD\glad.h" />
-    <ClInclude Include="GLAD\khrplatform.h" />
-    <ClInclude Include="GLTool\GLCamera\HGLCamera.h" />
-    <ClInclude Include="GLTool\GLLight\HGLAmbientLight.h" />
-    <ClInclude Include="GLTool\GLLight\HGLCameraParallelLight.h" />
-    <ClInclude Include="GLTool\GLLight\HGLLight.h" />
-    <ClInclude Include="GLTool\GLLight\HGLParallelLight.h" />
-    <ClInclude Include="GLTool\GLLight\HGLPointLight.h" />
-    <ClInclude Include="GLTool\GLLight\HGLSpotLight.h" />
-    <ClInclude Include="GLTool\GLModel\HGLMesh.h" />
-    <ClInclude Include="GLTool\GLModel\HGLModel.h" />
-    <ClInclude Include="GLTool\GLScenes\HGLScenes.h" />
-    <ClInclude Include="GLTool\GLShader\HGLDynamicFragmentShader.h" />
-    <ClInclude Include="GLTool\GLShader\HGLShader.h" />
-    <ClInclude Include="GLTool\GLShader\HGLShaderProgram.h" />
-    <ClInclude Include="GLTool\GLTexture2D\HGLTexture2D.h" />
+    <ClInclude Include="HGLTool\HGLCamera\HGLCamera.h" />
+    <ClInclude Include="HGLTool\HGLLight\HGLAmbientLight.h" />
+    <ClInclude Include="HGLTool\HGLLight\HGLCameraParallelLight.h" />
+    <ClInclude Include="HGLTool\HGLLight\HGLLight.h" />
+    <ClInclude Include="HGLTool\HGLLight\HGLParallelLight.h" />
+    <ClInclude Include="HGLTool\HGLLight\HGLPointLight.h" />
+    <ClInclude Include="HGLTool\HGLLight\HGLSpotLight.h" />
+    <ClInclude Include="HGLTool\HGLModel\HGLMesh.h" />
+    <ClInclude Include="HGLTool\HGLModel\HGLModel.h" />
+    <ClInclude Include="HGLTool\HGLScenes\HGLScenes.h" />
+    <ClInclude Include="HGLTool\HGLShader\HGLDynamicFragmentShader.h" />
+    <ClInclude Include="HGLTool\HGLShader\HGLShader.h" />
+    <ClInclude Include="HGLTool\HGLShader\HGLShaderProgram.h" />
+    <ClInclude Include="HGLTool\HGLTexture2D\HGLTexture2D.h" />
+    <ClInclude Include="lib\glad\glad.h" />
+    <ClInclude Include="lib\glad\khrplatform.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="GLTool\ShaderSource\LightTest.ss" />
     <None Include="shader.vs" />
   </ItemGroup>
   <ItemGroup>

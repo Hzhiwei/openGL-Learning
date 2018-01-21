@@ -1,6 +1,5 @@
 
 #include <iostream>
-#include "GLAD/glad.h"
 #include <GLFW/glfw3.h>
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
@@ -11,19 +10,20 @@
 #include <assimp/postprocess.h>
 #include <memory>
 
-#include "GLTool/GLShader/HGLShader.h"
-#include "GLTool/GLTexture2D/HGLTexture2D.h"
-#include "GLTool/GLCamera/HGLCamera.h"
-#include "GLTool/GLModel/HGLModel.h"
-#include "GLTool/GLShader/HGLShaderProgram.h"
-#include "GLTool/GLShader/HGLDynamicFragmentShader.h"
-#include "GLTool/GLLight/HGLLight.h"
-#include "GLTool/GLLight/HGLAmbientLight.h"
-#include "GLTool/GLLight/HGLParallelLight.h"
-#include "GLTool/GLLight/HGLCameraParallelLight.h"
-#include "GLTool/GLLight/HGLPointLight.h"
-#include "GLTool/GLLight/HGLSpotLight.h"
-#include "GLTool/GLScenes/HGLScenes.h"
+#include "lib/glad/glad.h"
+#include "HGLTool/HGLShader/HGLShader.h"
+#include "HGLTool/HGLTexture2D/HGLTexture2D.h"
+#include "HGLTool/HGLCamera/HGLCamera.h"
+#include "HGLTool/HGLModel/HGLModel.h"
+#include "HGLTool/HGLShader/HGLShaderProgram.h"
+#include "HGLTool/HGLShader/HGLDynamicFragmentShader.h"
+#include "HGLTool/HGLLight/HGLLight.h"
+#include "HGLTool/HGLLight/HGLAmbientLight.h"
+#include "HGLTool/HGLLight/HGLParallelLight.h"
+#include "HGLTool/HGLLight/HGLCameraParallelLight.h"
+#include "HGLTool/HGLLight/HGLPointLight.h"
+#include "HGLTool/HGLLight/HGLSpotLight.h"
+#include "HGLTool/HGLScenes/HGLScenes.h"
 
 using namespace std;
 using namespace HGLTool;
