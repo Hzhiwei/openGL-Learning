@@ -123,6 +123,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="HGLTool\HGLCamera\HGLCamera.cpp" />
+    <ClCompile Include="HGLTool\HGLFBO\HGLFBO.cpp" />
     <ClCompile Include="HGLTool\HGLModel\HGLMesh.cpp" />
     <ClCompile Include="HGLTool\HGLModel\HGLModel.cpp" />
     <ClCompile Include="HGLTool\HGLScenes\HGLScenes.cpp" />
@@ -137,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HGLTool\HGLCamera\HGLCamera.h" />
+    <ClInclude Include="HGLTool\HGLFBO\HGLFBO.h" />
     <ClInclude Include="HGLTool\HGLLight\HGLAmbientLight.h" />
     <ClInclude Include="HGLTool\HGLLight\HGLCameraParallelLight.h" />
     <ClInclude Include="HGLTool\HGLLight\HGLLight.h" />

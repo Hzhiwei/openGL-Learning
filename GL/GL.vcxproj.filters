@@ -39,6 +39,9 @@
     <Filter Include="lib\stb_image">
       <UniqueIdentifier>{8ded9374-cc1f-48cd-aac6-078f1770f5ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HGLTool\HGLFBO">
+      <UniqueIdentifier>{c1d81369-4b01-4cdf-ae67-fe4c74b3f439}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -70,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="lib\glad\glad.c">
       <Filter>lib\GLAD</Filter>
+    </ClCompile>
+    <ClCompile Include="HGLTool\HGLFBO\HGLFBO.cpp">
+      <Filter>HGLTool\HGLFBO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +126,9 @@
     </ClInclude>
     <ClInclude Include="lib\glad\khrplatform.h">
       <Filter>lib\GLAD</Filter>
+    </ClInclude>
+    <ClInclude Include="HGLTool\HGLFBO\HGLFBO.h">
+      <Filter>HGLTool\HGLFBO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
