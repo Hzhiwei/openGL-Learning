@@ -122,12 +122,4 @@
       <Filter>lib\GLAD</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="shader.vs">
-      <Filter>源文件</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="detail.txt" />
-  </ItemGroup>
 </Project>

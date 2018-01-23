@@ -73,6 +73,10 @@
     <IncludePath>D:\vsLib\OpenGL\GLFW\include;D:\vsLib\OpenGL\stb_image;D:\vsLib\OpenGL\GLM;D:\vsLib\OpenGL\assimp\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\vsLib\OpenGL\GLFW\lib-vc2015;D:\vsLib\OpenGL\assimp\lib\Reslease;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>D:\vsLib\OpenGL\GLFW\include;D:\vsLib\OpenGL\stb_image;D:\vsLib\OpenGL\GLM;D:\vsLib\OpenGL\assimp\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\vsLib\OpenGL\GLFW\lib-vc2015;D:\vsLib\OpenGL\assimp\lib\Reslease;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -114,6 +118,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>glfw3dll.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -147,12 +152,6 @@
     <ClInclude Include="HGLTool\HGLTexture2D\HGLTexture2D.h" />
     <ClInclude Include="lib\glad\glad.h" />
     <ClInclude Include="lib\glad\khrplatform.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shader.vs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="detail.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
