@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include <GLFW/glfw3.h>
+#include <GLFW/glfw3Modify.h>
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
@@ -61,6 +61,7 @@ int main()
 		glfwTerminate();
 		return -1;
 	}
+	//glfwHideWindow(mainWindow);
 
 	//glfw上下文设置
 	glfwMakeContextCurrent(mainWindow);
@@ -98,7 +99,7 @@ int main()
 
 	//viewCamera.MoveDeep(-6);
 	//viewCamera.MoveVertical(12);
-	viewCamera.MoveDeep(-3);
+	viewCamera.MoveDeep(-0.5);
 
 	while (!glfwWindowShouldClose(mainWindow))
 	{

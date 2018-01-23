@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>D:\vsLib\OpenGL\GLFW\include;D:\vsLib\OpenGL\stb_image;D:\vsLib\OpenGL\GLM;D:\vsLib\OpenGL\assimp\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\vsLib\OpenGL\GLFW\lib-vc2015;D:\vsLib\OpenGL\assimp\lib\Reslease;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\vsLib\OpenGL\GLFW\modify vc2017;D:\vsLib\OpenGL\assimp\lib\Reslease;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>D:\vsLib\OpenGL\GLFW\include;D:\vsLib\OpenGL\stb_image;D:\vsLib\OpenGL\GLM;D:\vsLib\OpenGL\assimp\include;$(IncludePath)</IncludePath>
